@@ -20,6 +20,8 @@
   },
   "homepage": "https://github.com/feather-tail/frontend-project-12#readme",
   "dependencies": {
-    "@hexlet/chat-server": "^2.0.4"
+    "@hexlet/chat-server": "^2.0.4",
+    "lorem-ipsum": "^2.0.8",
+    "react-router-dom": "^7.3.0"
   }
 }
