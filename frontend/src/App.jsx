@@ -1,13 +1,14 @@
-import { useState } from 'react'
-import './App.css'
-import { PageOne } from './404.jsx';
+import './App.css';
+import { Page404 } from './Page404.jsx';
+import { PageLogin } from './PageLogin.jsx';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="one" element={<PageOne />} />
+        <Route path='*' element={<Page404 />} />
+        <Route path='login' element={<PageLogin />} />
       </Routes>
     </BrowserRouter>
   );
