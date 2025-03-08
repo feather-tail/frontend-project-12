@@ -1,6 +1,6 @@
 import './App.css';
 import { Page404 } from './Page404.jsx';
-import { PageLogin } from './PageLogin.jsx';
+import PageLogin from './PageLogin.jsx';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 function App() {
