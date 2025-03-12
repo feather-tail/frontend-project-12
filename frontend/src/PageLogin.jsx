@@ -14,7 +14,7 @@ const LoginSchema = Yup.object().shape({
 });
 
 const LoginForm = () => {
-  const url = 'https://frontend-project-12-a4j7.onrender.com';
+  const url = '/socket.io';
   const navigate = useNavigate();
   return (
     <Formik
@@ -23,7 +23,7 @@ const LoginForm = () => {
       onSubmit={async (values, { setSubmitting }) => {
         try {
           const response = await axios.post(url, {
-            name: values.name,
+            name: values.username,
             password: values.password,
           });
           console.log(response.data);
@@ -44,7 +44,7 @@ const LoginForm = () => {
               id='username'
               name='username'
               type='text'
-              value={values.name}
+              value={values.username}
             />
             {errors.username && touched.username ? (
               <div>{errors.username}</div>
