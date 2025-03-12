@@ -14,7 +14,7 @@ const LoginSchema = Yup.object().shape({
 });
 
 const LoginForm = () => {
-  const url = '/socket.io';
+  const url = '/api/login';
   const navigate = useNavigate();
   return (
     <Formik
