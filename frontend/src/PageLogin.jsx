@@ -14,7 +14,7 @@ const LoginSchema = Yup.object().shape({
 });
 
 const LoginForm = () => {
-  const url = '/api';
+  const url = '/api/v1/login';
   const navigate = useNavigate();
   return (
     <Formik
@@ -22,10 +22,7 @@ const LoginForm = () => {
       validationSchema={LoginSchema}
       onSubmit={async (values, { setSubmitting }) => {
         try {
-          const response = await axios.post(url, {
-            name: values.username,
-            password: values.password,
-          });
+          const response = await axios.post(url, values);
           console.log(response.data);
           localStorage.setItem('token', response.data.token);
           navigate('/');

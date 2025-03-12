@@ -21,10 +21,12 @@
   "homepage": "https://github.com/feather-tail/frontend-project-12#readme",
   "dependencies": {
     "@hexlet/chat-server": "^2.0.4",
+    "@reduxjs/toolkit": "^2.6.1",
     "axios": "^1.8.2",
     "formik": "^2.4.6",
     "jose": "^6.0.10",
     "lorem-ipsum": "^2.0.8",
+    "react-redux": "^9.2.0",
     "react-router-dom": "^7.3.0",
     "yup": "^1.6.1"
   }
