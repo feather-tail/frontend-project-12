@@ -1,8 +1,10 @@
 import React from 'react';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { loginUser } from './slices/authSlice';
+import { useSelector } from 'react-redux';
 
 const LoginSchema = Yup.object().shape({
   username: Yup.string()
@@ -14,56 +16,58 @@ const LoginSchema = Yup.object().shape({
 });
 
 const LoginForm = () => {
-  const url = '/api/v1/login';
   const navigate = useNavigate();
-  return (
-    <Formik
-      initialValues={{ username: '', password: '' }}
-      validationSchema={LoginSchema}
-      onSubmit={async (values, { setSubmitting }) => {
-        try {
-          const response = await axios.post(url, values);
-          console.log(response.data);
-          localStorage.setItem('token', response.data.token);
-          navigate('/');
-        } catch (error) {
-          console.log('Ошибка авторизации:', error.response.data.message);
-          navigate('/Page401');
-        }
-        setSubmitting(false);
-      }}
-    >
-      {({ values, errors, touched }) => (
-        <Form>
-          <div>
-            <label htmlFor='username'>Имя пользователя</label>
-            <Field
-              id='username'
-              name='username'
-              type='text'
-              value={values.username}
-            />
-            {errors.username && touched.username ? (
-              <div>{errors.username}</div>
-            ) : null}
-          </div>
-          <div>
-            <label htmlFor='password'>Пароль</label>
-            <Field
-              id='password'
-              name='password'
-              type='password'
-              value={values.password}
-            />
-            {errors.password && touched.password ? (
-              <div>{errors.password}</div>
-            ) : null}
-          </div>
+  const dispatch = useDispatch();
+  const { error } = useSelector((state) => state.auth);
 
-          <button type='submit'>Войти</button>
-        </Form>
-      )}
-    </Formik>
+  return (
+    <>
+      {error && <div style={{ color: 'red' }}>{error}</div>}
+      <Formik
+        initialValues={{ username: '', password: '' }}
+        validationSchema={LoginSchema}
+        onSubmit={async (values, { setSubmitting }) => {
+          const resultAction = await dispatch(loginUser(values));
+          if (loginUser.fulfilled.match(resultAction)) {
+            navigate('/');
+          } else {
+            console.log('Ошибка авторизации:', resultAction.payload);
+          }
+          setSubmitting(false);
+        }}
+      >
+        {({ values, errors, touched }) => (
+          <Form>
+            <div>
+              <label htmlFor='username'>Имя пользователя</label>
+              <Field
+                id='username'
+                name='username'
+                type='text'
+                value={values.username}
+              />
+              {errors.username && touched.username ? (
+                <div>{errors.username}</div>
+              ) : null}
+            </div>
+            <div>
+              <label htmlFor='password'>Пароль</label>
+              <Field
+                id='password'
+                name='password'
+                type='password'
+                value={values.password}
+              />
+              {errors.password && touched.password ? (
+                <div>{errors.password}</div>
+              ) : null}
+            </div>
+
+            <button type='submit'>Войти</button>
+          </Form>
+        )}
+      </Formik>
+    </>
   );
 };
 

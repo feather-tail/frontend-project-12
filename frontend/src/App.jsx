@@ -1,16 +1,27 @@
-import './App.css';
-import { Page404 } from './Page404.jsx';
-import PageLogin from './PageLogin.jsx';
+import React from 'react';
+import { Provider } from 'react-redux';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { store } from './slices/store';
+import PageLogin from './PageLogin.jsx';
+import { Page404 } from './Page404.jsx';
+import { initializeAuth } from './slices/authSlice';
+import ProtectedRoute from './ProtectedRoute.jsx';
 
 function App() {
+  const savedToken = localStorage.getItem('token');
+  store.dispatch(initializeAuth(savedToken));
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path='*' element={<Page404 />} />
-        <Route path='login' element={<PageLogin />} />
-      </Routes>
-    </BrowserRouter>
+    <Provider store={store}>
+      <BrowserRouter>
+        <Routes>
+          <Route path='*' element={<Page404 />} />
+          <Route path='login' element={<PageLogin />} />
+          <Route element={<ProtectedRoute />}>
+            <Route path='/' element={<PageLogin />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </Provider>
   );
 }
 
