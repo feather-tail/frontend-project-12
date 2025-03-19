@@ -6,10 +6,12 @@ import PageLogin from './PageLogin.jsx';
 import { Page404 } from './Page404.jsx';
 import { initializeAuth } from './slices/authSlice';
 import ProtectedRoute from './ProtectedRoute.jsx';
+import ChatPage from './ChatPage.jsx';
 
 function App() {
   const savedToken = localStorage.getItem('token');
   store.dispatch(initializeAuth(savedToken));
+
   return (
     <Provider store={store}>
       <BrowserRouter>
@@ -17,7 +19,7 @@ function App() {
           <Route path='*' element={<Page404 />} />
           <Route path='login' element={<PageLogin />} />
           <Route element={<ProtectedRoute />}>
-            <Route path='/' element={<PageLogin />} />
+            <Route path='/' element={<ChatPage />} />
           </Route>
         </Routes>
       </BrowserRouter>
