@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/feather-tail/frontend-project-12#readme",
   "dependencies": {
-    "@hexlet/chat-server": "^2.0.4",
+    "@hexlet/chat-server": "^1.1.6",
     "@reduxjs/toolkit": "^2.6.1",
     "axios": "^1.8.2",
     "bootstrap": "^5.3.3",
