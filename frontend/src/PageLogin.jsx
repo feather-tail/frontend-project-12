@@ -7,7 +7,6 @@ import { Container, Row, Col, Card, Button, Image, Form as RBForm, FloatingLabel
 import { loginUser } from './slices/authSlice';
 import { useNavigate } from 'react-router-dom';
 
-// Схема валидации
 const LoginSchema = Yup.object().shape({
   username: Yup.string()
     .min(5, 'Минимум 5 символов')
@@ -22,7 +21,6 @@ const PageLogin = () => {
   const navigate = useNavigate();
   const { error } = useSelector((state) => state.auth);
 
-  // Обработчик отправки формы
   const handleSubmit = async (values, { setSubmitting }) => {
     const resultAction = await dispatch(loginUser(values));
     if (loginUser.fulfilled.match(resultAction)) {
@@ -50,7 +48,6 @@ const PageLogin = () => {
 
                 {error && <div style={{ color: 'red' }}>{error}</div>}
 
-                {/* Formik-обертка */}
                 <Formik
                   initialValues={{ username: '', password: '' }}
                   validationSchema={LoginSchema}
@@ -58,7 +55,6 @@ const PageLogin = () => {
                 >
                   {({ errors, touched, isSubmitting }) => (
                     <Form>
-                      {/* Поле "Ник" */}
                       <FloatingLabel
                         controlId="username"
                         label="Ваш ник"
@@ -76,7 +72,6 @@ const PageLogin = () => {
                         </RBForm.Control.Feedback>
                       </FloatingLabel>
 
-                      {/* Поле "Пароль" */}
                       <FloatingLabel
                         controlId="password"
                         label="Пароль"
