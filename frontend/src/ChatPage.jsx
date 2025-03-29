@@ -6,7 +6,9 @@ import {
   channelsSelectors,
   messagesSelectors,
   setCurrentChannelId,
+  addNewMessage,
 } from './slices/chatSlice';
+import socket from './initSocket';
 
 const ChatPage = () => {
   const dispatch = useDispatch();
@@ -14,6 +16,15 @@ const ChatPage = () => {
 
   useEffect(() => {
     dispatch(fetchChatData());
+  }, [dispatch]);
+
+  useEffect(() => {
+    socket.on('newMessage', (messageData) => {
+      dispatch(addNewMessage(messageData));
+    });
+    return () => {
+      socket.off('newMessage');
+    };
   }, [dispatch]);
 
   const channels = useSelector(channelsSelectors.selectAll);

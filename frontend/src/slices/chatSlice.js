@@ -59,6 +59,9 @@ const chatSlice = createSlice({
     setCurrentChannelId(state, action) {
       state.currentChannelId = action.payload;
     },
+    addNewMessage(state, action) {
+      messagesAdapter.addOne(state.messages, action.payload);
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -94,5 +97,5 @@ export const messagesSelectors = messagesAdapter.getSelectors(
   (state) => state.chat.messages,
 );
 
-export const { setCurrentChannelId } = chatSlice.actions;
+export const { setCurrentChannelId, addNewMessage } = chatSlice.actions;
 export default chatSlice.reducer;
