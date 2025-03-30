@@ -57,13 +57,9 @@ const ChatPage = () => {
     if (!trimmed) return;
   
     const payload = {
-      data: {
-        attributes: {
-          channelId: currentChannelId,
-          body: trimmed,
-          username,
-        },
-      },
+      channelId: currentChannelId,
+      body: trimmed,
+      username,
     };
   
     try {
@@ -80,8 +76,7 @@ const ChatPage = () => {
     } catch (err) {
       console.error('Ошибка при отправке сообщения:', err);
     }
-  };
-  
+  };  
 
   return (
     <div className="container h-100 my-4 overflow-hidden rounded shadow">
