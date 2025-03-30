@@ -42,6 +42,8 @@ const authSlice = createSlice({
       if (token) {
         state.isAuth = true;
         state.token = token;
+        const user = localStorage.getItem('user');
+        state.user = user;
       }
     },
   },
