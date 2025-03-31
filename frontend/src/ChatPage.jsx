@@ -63,7 +63,7 @@ const ChatPage = () => {
     };
   
     try {
-      await fetch('http://localhost:5001/api/v1/messages', {
+      await fetch('/api/v1/messages', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
