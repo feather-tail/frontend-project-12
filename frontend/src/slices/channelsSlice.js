@@ -1,10 +1,10 @@
+/* channelsSlice.js */
 import { createSlice, createEntityAdapter } from '@reduxjs/toolkit';
 import { createSelector } from 'reselect';
 
 import { fetchChannels } from './fetchData.js';
 
 const channelsAdapter = createEntityAdapter();
-
 const initialState = channelsAdapter.getInitialState({
   currentChannelId: null,
 });
@@ -14,14 +14,29 @@ const channelsSlice = createSlice({
   initialState,
   reducers: {
     addChannel: channelsAdapter.addOne,
-    removeChannel: (state, { payload }) => {
-      channelsAdapter.removeOne(state, payload);
-      if (state.currentChannelId === payload) {
-        const [firstId] = state.ids;
-        state.currentChannelId = firstId ?? null;
+
+    removeChannel: (state, { payload: removedChannelId }) => {
+      channelsAdapter.removeOne(state, removedChannelId);
+
+      // Если удалённый канал был текущим, переключимся на канал 'general'
+      // или, если его нет, на первый доступный
+      if (state.currentChannelId === removedChannelId) {
+        // Находим сущность с name === 'general'
+        const allEntities = Object.values(state.entities);
+        const generalChannel = allEntities.find((ch) => ch.name === 'general');
+
+        if (generalChannel) {
+          state.currentChannelId = generalChannel.id;
+        } else {
+          // Если вдруг нет канала general, переключаемся на первый из списка
+          const [firstId] = state.ids;
+          state.currentChannelId = firstId ?? null;
+        }
       }
     },
+
     renameChannel: channelsAdapter.updateOne,
+
     changeChannel: (state, { payload }) => {
       state.currentChannelId = payload;
     },
@@ -30,6 +45,7 @@ const channelsSlice = createSlice({
     builder
       .addCase(fetchChannels.fulfilled, (state, { payload }) => {
         channelsAdapter.setAll(state, payload);
+
         if (payload.length > 0 && !state.currentChannelId) {
           state.currentChannelId = payload[0].id;
         }
@@ -38,11 +54,9 @@ const channelsSlice = createSlice({
 });
 
 export const { actions: channelsActions } = channelsSlice;
-
 export default channelsSlice.reducer;
 
 const channelsSelectors = channelsAdapter.getSelectors((state) => state.channels);
-
 export const selectAllChannels = channelsSelectors.selectAll;
 export const selectChannelById = channelsSelectors.selectById;
 export const selectCurrentChannelId = (state) => state.channels.currentChannelId;
