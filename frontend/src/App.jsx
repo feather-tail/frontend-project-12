@@ -11,8 +11,10 @@ import ChatPage from './ChatPage.jsx';
 import './i18n.js';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import profanityInit from './initProfanity.js';
 
 function App() {
+  profanityInit();
   const savedToken = localStorage.getItem('token');
   store.dispatch(initializeAuth(savedToken));
 

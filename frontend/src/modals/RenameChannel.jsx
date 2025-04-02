@@ -13,6 +13,7 @@ import { selectAllChannels, channelsActions } from '../slices/channelsSlice.js';
 import apiRoutes from '../routes/route.js';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
+import leoProfanity from 'leo-profanity';
 
 const RenameChannelModal = ({ show, handleClose, channel }) => {
   const dispatch = useDispatch();
@@ -47,13 +48,14 @@ const RenameChannelModal = ({ show, handleClose, channel }) => {
 
   const handleSubmit = async ({ name }, { setSubmitting, setErrors }) => {
     try {
+      const sanitizedName = leoProfanity.clean(name);
       const token = localStorage.getItem('token');
       const headers = { Authorization: `Bearer ${token}` };
 
       // Запрос на переименование
       const { data } = await axios.patch(
         apiRoutes.channelPath(channel.id),
-        { name },
+        { name: sanitizedName },
         { headers },
       );
 

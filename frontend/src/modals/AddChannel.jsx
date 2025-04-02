@@ -15,6 +15,8 @@ import { useTranslation } from 'react-i18next';
 
 import { toast } from 'react-toastify';
 
+import leoProfanity from 'leo-profanity';
+
 const AddChannelModal = ({ show, handleClose }) => {
   const dispatch = useDispatch();
   const channels = useSelector(selectAllChannels);
@@ -40,11 +42,12 @@ const AddChannelModal = ({ show, handleClose }) => {
 
   const handleSubmit = async ({ name }, { setSubmitting, setErrors }) => {
     try {
+      const sanitizedName = leoProfanity.clean(name);
       const token = localStorage.getItem('token');
       const headers = { Authorization: `Bearer ${token}` };
 
       // Отправляем запрос на создание канала
-      const { data } = await axios.post(apiRoutes.channelsPath(), { name }, { headers });
+      const { data } = await axios.post(apiRoutes.channelsPath(), { name: sanitizedName }, { headers });
       // После успешного ответа сразу добавляем канал в Redux и переключаемся
       dispatch(channelsActions.addChannel(data));
       dispatch(channelsActions.changeChannel(data.id));

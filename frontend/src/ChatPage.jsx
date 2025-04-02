@@ -24,6 +24,7 @@ import RemoveChannelModal from './modals/RemoveChannel.jsx';
 
 import Header from './Header.jsx';
 import { useTranslation } from 'react-i18next';
+import leoProfanity from 'leo-profanity';
 
 const ChatPage = () => {
   const dispatch = useDispatch();
@@ -71,9 +72,11 @@ const ChatPage = () => {
     const trimmed = newMessage.trim();
     if (!trimmed) return;
 
+    const sanitized = leoProfanity.clean(trimmed);
+
     const payload = {
       channelId: currentChannelId,
-      body: trimmed,
+      body: sanitized,
       username,
     };
 
