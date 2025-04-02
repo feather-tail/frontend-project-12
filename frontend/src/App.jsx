@@ -3,6 +3,7 @@ import { Provider } from 'react-redux';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { store } from './slices/store';
 import PageLogin from './PageLogin.jsx';
+import PageSignup from './PageSignup.jsx';
 import { Page404 } from './Page404.jsx';
 import { initializeAuth } from './slices/authSlice';
 import ProtectedRoute from './ProtectedRoute.jsx';
@@ -18,6 +19,7 @@ function App() {
         <Routes>
           <Route path='*' element={<Page404 />} />
           <Route path='login' element={<PageLogin />} />
+          <Route path='signup' element={<PageSignup />} />
           <Route element={<ProtectedRoute />}>
             <Route path='/' element={<ChatPage />} />
           </Route>

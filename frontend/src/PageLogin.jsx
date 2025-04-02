@@ -7,6 +7,8 @@ import { Container, Row, Col, Card, Button, Image, Form as RBForm, FloatingLabel
 import { loginUser } from './slices/authSlice';
 import { useNavigate } from 'react-router-dom';
 
+import Header from './Header.jsx';
+
 const LoginSchema = Yup.object().shape({
   username: Yup.string()
     .min(5, 'Минимум 5 символов')
@@ -31,6 +33,7 @@ const PageLogin = () => {
 
   return (
     <Container fluid className="h-100 bg-light">
+      <Header />
       <Row className="justify-content-center align-items-center h-100">
         <Col xs={12} md={8} xxl={6}>
           <Card className="shadow-sm">

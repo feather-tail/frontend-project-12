@@ -21,6 +21,7 @@ import socket from './initSocket';
 import AddChannelModal from './modals/AddChannel.jsx';
 import RenameChannelModal from './modals/RenameChannel.jsx';
 import RemoveChannelModal from './modals/RemoveChannel.jsx';
+import Header from './Header.jsx';
 
 const ChatPage = () => {
   const dispatch = useDispatch();
@@ -34,9 +35,9 @@ const ChatPage = () => {
 
   const token = useSelector((state) => state.auth.token);
   const username = useSelector((state) => state.auth.user);
-  const headers = { Authorization: `Bearer ${token}` };
 
   useEffect(() => {
+    const headers = { Authorization: `Bearer ${token}` };
     dispatch(fetchChannels(headers));
     dispatch(fetchMessages(headers));
   }, [dispatch, token]);
@@ -88,6 +89,7 @@ const ChatPage = () => {
 
   return (
     <>
+    <Header />
       <div className="container h-100 my-4 overflow-hidden rounded shadow">
         <div className="row h-100 bg-white flex-md-row">
           <div className="col-4 col-md-2 border-end px-0 bg-light flex-column h-100 d-flex">
