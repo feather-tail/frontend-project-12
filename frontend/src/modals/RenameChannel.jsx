@@ -12,6 +12,7 @@ import axios from 'axios';
 import { selectAllChannels, channelsActions } from '../slices/channelsSlice.js';
 import apiRoutes from '../routes/route.js';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 
 const RenameChannelModal = ({ show, handleClose, channel }) => {
   const dispatch = useDispatch();
@@ -61,6 +62,8 @@ const RenameChannelModal = ({ show, handleClose, channel }) => {
         id: channel.id,
         changes: { name: data.name },
       }));
+
+      toast.success(t('notifications.channelRenamed'));
 
       handleClose();
     } catch (err) {

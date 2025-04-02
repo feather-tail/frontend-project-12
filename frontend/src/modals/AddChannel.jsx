@@ -13,6 +13,8 @@ import { selectAllChannels, channelsActions } from '../slices/channelsSlice.js';
 import apiRoutes from '../routes/route.js';
 import { useTranslation } from 'react-i18next';
 
+import { toast } from 'react-toastify';
+
 const AddChannelModal = ({ show, handleClose }) => {
   const dispatch = useDispatch();
   const channels = useSelector(selectAllChannels);
@@ -46,6 +48,8 @@ const AddChannelModal = ({ show, handleClose }) => {
       // После успешного ответа сразу добавляем канал в Redux и переключаемся
       dispatch(channelsActions.addChannel(data));
       dispatch(channelsActions.changeChannel(data.id));
+
+      toast.success(t('notifications.channelCreated'));
 
       // Закрываем модал
       handleClose();

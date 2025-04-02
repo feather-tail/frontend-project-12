@@ -9,6 +9,8 @@ import { initializeAuth } from './slices/authSlice';
 import ProtectedRoute from './ProtectedRoute.jsx';
 import ChatPage from './ChatPage.jsx';
 import './i18n.js';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   const savedToken = localStorage.getItem('token');
@@ -25,6 +27,7 @@ function App() {
             <Route path='/' element={<ChatPage />} />
           </Route>
         </Routes>
+        <ToastContainer />
       </BrowserRouter>
     </Provider>
   );
