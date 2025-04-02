@@ -8,6 +8,7 @@ import { Page404 } from './Page404.jsx';
 import { initializeAuth } from './slices/authSlice';
 import ProtectedRoute from './ProtectedRoute.jsx';
 import ChatPage from './ChatPage.jsx';
+import './i18n.js';
 
 function App() {
   const savedToken = localStorage.getItem('token');

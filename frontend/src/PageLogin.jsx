@@ -8,20 +8,22 @@ import { loginUser } from './slices/authSlice';
 import { useNavigate } from 'react-router-dom';
 
 import Header from './Header.jsx';
-
-const LoginSchema = Yup.object().shape({
-  username: Yup.string()
-    .min(5, 'Минимум 5 символов')
-    .required('Обязательное поле'),
-  password: Yup.string()
-    .min(5, 'Минимум 5 символов')
-    .required('Обязательное поле'),
-});
+import { useTranslation } from 'react-i18next';
 
 const PageLogin = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { error } = useSelector((state) => state.auth);
+  const { t } = useTranslation();
+
+  const LoginSchema = Yup.object().shape({
+    username: Yup.string()
+      .min(5, t('login.errors.min5'))
+      .required(t('login.errors.required')),
+    password: Yup.string()
+      .min(5, t('login.errors.min5'))
+      .required(t('login.errors.required')),
+  });
 
   const handleSubmit = async (values, { setSubmitting }) => {
     const resultAction = await dispatch(loginUser(values));
@@ -42,15 +44,17 @@ const PageLogin = () => {
                 <Image
                   src="/assets/avatar-DIE1AEpS.jpg"
                   roundedCircle
-                  alt="Войти"
+                  alt={t('login.title')}
                 />
               </Col>
 
               <Col md={6} className="mt-3 mt-md-0">
-                <h1 className="text-center mb-4">Войти</h1>
+                <h1 className="text-center mb-4">{t('login.title')}</h1>
 
-                {error && <div style={{ color: 'red' }}>{error}</div>}
-
+                {error && <div style={{ color: 'red' }}>
+                  {error === 'Неверный логин или пароль'
+                    ? t('login.errorInvalid')
+                    : error}</div>}
                 <Formik
                   initialValues={{ username: '', password: '' }}
                   validationSchema={LoginSchema}
@@ -60,14 +64,14 @@ const PageLogin = () => {
                     <Form>
                       <FloatingLabel
                         controlId="username"
-                        label="Ваш ник"
+                        label={t('login.placeholder.username')}
                         className="mb-3"
                       >
                         <Field
                           as={RBForm.Control}
                           type="text"
                           name="username"
-                          placeholder="Ваш ник"
+                          placeholder={t('login.placeholder.username')}
                           isInvalid={touched.username && !!errors.username}
                         />
                         <RBForm.Control.Feedback type="invalid">
@@ -77,14 +81,14 @@ const PageLogin = () => {
 
                       <FloatingLabel
                         controlId="password"
-                        label="Пароль"
+                        label={t('login.placeholder.password')}
                         className="mb-4"
                       >
                         <Field
                           as={RBForm.Control}
                           type="password"
                           name="password"
-                          placeholder="Пароль"
+                          placeholder={t('login.placeholder.password')}
                           isInvalid={touched.password && !!errors.password}
                         />
                         <RBForm.Control.Feedback type="invalid">
@@ -98,7 +102,7 @@ const PageLogin = () => {
                         className="w-100 mb-3"
                         disabled={isSubmitting}
                       >
-                        Войти
+                        {t('login.button')}
                       </Button>
                     </Form>
                   )}
@@ -108,8 +112,8 @@ const PageLogin = () => {
 
             <Card.Footer className="p-4">
               <div className="text-center">
-                <span>Нет аккаунта?</span>{' '}
-                <Card.Link href="/signup">Регистрация</Card.Link>
+              <span>{t('login.noAccount')}</span>{' '}
+              <Card.Link href="/signup">{t('login.signupLink')}</Card.Link>
               </div>
             </Card.Footer>
           </Card>

@@ -11,33 +11,37 @@ import axios from 'axios';
 
 import { selectAllChannels, channelsActions } from '../slices/channelsSlice.js';
 import apiRoutes from '../routes/route.js';
+import { useTranslation } from 'react-i18next';
 
 const RenameChannelModal = ({ show, handleClose, channel }) => {
   const dispatch = useDispatch();
   const channels = useSelector(selectAllChannels);
-  // Исключаем текущее имя канала из списка (чтобы не запрещать вводить то же самое имя)
-  const channelNames = channels.map((ch) => ch.name).filter((name) => name !== channel?.name);
+  const { t } = useTranslation();
 
-  // Ссылка на input для выделения текста при открытии
+  // Исключаем текущее имя канала из списка, чтобы не блокировать ввод того же самого
+  const channelNames = channels
+    .map((ch) => ch.name)
+    .filter((name) => name !== channel?.name);
+
+  // Фокус и выделение при открытии модалки
   const inputRef = useRef(null);
   useEffect(() => {
     if (show && inputRef.current) {
       inputRef.current.focus();
-      inputRef.current.select(); // Выделяем старое название, чтобы удобнее было сразу ввести новое
+      inputRef.current.select();
     }
   }, [show]);
 
   if (!channel) {
-    return null; // или можно выводить пустую разметку
+    return null;
   }
 
-  // Схема валидации
   const validationSchema = Yup.object({
     name: Yup.string()
-      .min(3, 'Не менее 3 символов')
-      .max(20, 'Не более 20 символов')
-      .required('Обязательное поле')
-      .notOneOf(channelNames, 'Имя уже используется'),
+      .min(3, t('renameChannel.errors.min3'))    // "Не менее 3 символов"
+      .max(20, t('renameChannel.errors.max20'))  // "Не более 20 символов"
+      .required(t('renameChannel.errors.required'))
+      .notOneOf(channelNames, t('renameChannel.errors.nameExists')),
   });
 
   const handleSubmit = async ({ name }, { setSubmitting, setErrors }) => {
@@ -45,15 +49,23 @@ const RenameChannelModal = ({ show, handleClose, channel }) => {
       const token = localStorage.getItem('token');
       const headers = { Authorization: `Bearer ${token}` };
 
-      // Запрос на сервер для переименования
-      const { data } = await axios.patch(apiRoutes.channelPath(channel.id), { name }, { headers });
+      // Запрос на переименование
+      const { data } = await axios.patch(
+        apiRoutes.channelPath(channel.id),
+        { name },
+        { headers },
+      );
 
-      // Обновляем Redux (можно через сокет, но здесь напрямую)
-      dispatch(channelsActions.renameChannel({ id: channel.id, changes: { name: data.name } }));
+      // Обновляем Redux
+      dispatch(channelsActions.renameChannel({
+        id: channel.id,
+        changes: { name: data.name },
+      }));
 
       handleClose();
     } catch (err) {
-      setErrors({ name: 'Ошибка при переименовании канала' });
+      // Общая ошибка, если что-то пошло не так
+      setErrors({ name: t('renameChannel.error') });
       console.error(err);
     } finally {
       setSubmitting(false);
@@ -63,7 +75,7 @@ const RenameChannelModal = ({ show, handleClose, channel }) => {
   return (
     <Modal show={show} onHide={handleClose} centered>
       <Modal.Header closeButton>
-        <Modal.Title>Переименовать канал</Modal.Title>
+        <Modal.Title>{t('renameChannel.title')}</Modal.Title>
       </Modal.Header>
 
       <Formik
@@ -75,12 +87,14 @@ const RenameChannelModal = ({ show, handleClose, channel }) => {
           <Form as={FormikForm}>
             <Modal.Body>
               <Form.Group controlId="channelName">
-                <Form.Label className="visually-hidden">Имя канала</Form.Label>
+                <Form.Label className="visually-hidden">
+                  {t('renameChannel.placeholder')}
+                </Form.Label>
                 <Field
                   as={Form.Control}
                   name="name"
                   type="text"
-                  placeholder="Новое имя канала"
+                  placeholder={t('renameChannel.placeholder')}
                   innerRef={inputRef}
                 />
                 <div className="invalid-feedback d-block">
@@ -90,11 +104,19 @@ const RenameChannelModal = ({ show, handleClose, channel }) => {
             </Modal.Body>
 
             <Modal.Footer>
-              <Button variant="secondary" onClick={handleClose} disabled={isSubmitting}>
-                Отмена
+              <Button
+                variant="secondary"
+                onClick={handleClose}
+                disabled={isSubmitting}
+              >
+                {t('modal.cancel')}
               </Button>
-              <Button variant="primary" type="submit" disabled={isSubmitting}>
-                Сохранить
+              <Button
+                variant="primary"
+                type="submit"
+                disabled={isSubmitting}
+              >
+                {t('modal.save')}
               </Button>
             </Modal.Footer>
           </Form>

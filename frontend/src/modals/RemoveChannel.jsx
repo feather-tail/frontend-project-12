@@ -5,9 +5,11 @@ import axios from 'axios';
 
 import { channelsActions } from '../slices/channelsSlice.js';
 import apiRoutes from '../routes/route.js';
+import { useTranslation } from 'react-i18next';
 
 const RemoveChannelModal = ({ show, handleClose, channel }) => {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   if (!channel) {
     return null;
@@ -20,33 +22,29 @@ const RemoveChannelModal = ({ show, handleClose, channel }) => {
 
       // Запрос на удаление канала
       await axios.delete(apiRoutes.channelPath(channel.id), { headers });
-
-      // Экшен removeChannel в redux. Он также убирает все сообщения данного канала
       dispatch(channelsActions.removeChannel(channel.id));
 
       handleClose();
     } catch (err) {
-      console.error('Ошибка при удалении канала:', err);
-      // Обработку ошибки (UI) при желании можно добавить
+      console.error(t('removeChannel.error'), err);
+      // При необходимости выводить пользовательскую ошибку в UI
     }
   };
 
   return (
     <Modal show={show} onHide={handleClose} centered>
       <Modal.Header closeButton>
-        <Modal.Title>Удалить канал</Modal.Title>
+        <Modal.Title>{t('removeChannel.title')}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        Уверены, что хотите удалить канал &laquo;{channel.name}&raquo;?
-        <br />
-        Все сообщения внутри него будут потеряны.
+        {t('removeChannel.body', { channelName: channel.name })}
       </Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={handleClose}>
-          Отмена
+          {t('modal.cancel')}
         </Button>
         <Button variant="danger" onClick={handleRemove}>
-          Удалить
+          {t('modal.remove')}
         </Button>
       </Modal.Footer>
     </Modal>
