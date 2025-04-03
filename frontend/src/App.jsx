@@ -30,7 +30,6 @@ function App() {
           </Route>
         </Routes>
         <ToastContainer />
-        <RollbarDemo />
       </BrowserRouter>
     </Provider>
   );
