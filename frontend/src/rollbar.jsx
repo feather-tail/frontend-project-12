@@ -1,5 +1,5 @@
 import React from 'react';
-import { Provider, ErrorBoundary } from '@rollbar/react'; // Provider imports 'rollbar'
+import { Provider, ErrorBoundary } from '@rollbar/react';
 
 const rollbarConfig = {
   accessToken: '4d2ab63177044cc0ad2572c2314d9f09',
@@ -11,7 +11,7 @@ function TestError() {
   return a.hello();
 }
 
-export default function App() {
+export default function RollbarDemo() {
   return (
     <Provider config={rollbarConfig}>
       <ErrorBoundary>
