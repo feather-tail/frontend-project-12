@@ -12,7 +12,6 @@ import './i18n.js';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import profanityInit from './initProfanity.js';
-import RollbarDemo from './rollbar.jsx';
 
 function App() {
   profanityInit();

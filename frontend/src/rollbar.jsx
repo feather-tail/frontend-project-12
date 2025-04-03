@@ -1,22 +1,24 @@
 import React from 'react';
 import { Provider, ErrorBoundary } from '@rollbar/react';
+import Rollbar from 'rollbar';
 
 const rollbarConfig = {
-  accessToken: 'b07976a7afab4a6699308626b0985add',
+  accessToken: 'ee86184aecad46618f55d7f30fd11831',
   environment: 'production',
-  captureUncaught: true,
-  captureUnhandledRejections: true,
 };
 
-function ThrowInRender() {
-  throw new Error('🔥 Ошибка: throw прямо в render() для теста Rollbar');
+const rollbar = new Rollbar(rollbarConfig);
+
+function TestError() {
+  const a = null;
+  return a.hello();
 }
 
-export default function RollbarDemo() {
+export default function RollBarrApp() {
   return (
-    <Provider config={rollbarConfig}>
+    <Provider instance={rollbar}>
       <ErrorBoundary>
-        <ThrowInRender />
+        <TestError />
       </ErrorBoundary>
     </Provider>
   );
