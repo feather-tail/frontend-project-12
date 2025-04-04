@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Dropdown, ButtonGroup } from 'react-bootstrap';
-
 import { fetchChannels, fetchMessages } from '../store/fetchData.js';
 import {
   selectAllChannels,
@@ -9,19 +8,14 @@ import {
   selectCurrentChannelId,
   channelsActions,
 } from '../store/channelsSlice.js';
-
 import {
   selectCurrentChannelMessages,
   messagesActions,
 } from '../store/messagesSlice.js';
-
 import socket from '../services/initSocket';
-
-// Модальные окна
 import AddChannelModal from '../modals/AddChannel.jsx';
 import RenameChannelModal from '../modals/RenameChannel.jsx';
 import RemoveChannelModal from '../modals/RemoveChannel.jsx';
-
 import Header from '../components/Header.jsx';
 import { useTranslation } from 'react-i18next';
 import leoProfanity from 'leo-profanity';
@@ -32,7 +26,6 @@ const ChatPage = () => {
 
   const [newMessage, setNewMessage] = useState('');
 
-  // Состояние для управления модальными окнами
   const [showAddModal, setShowAddModal] = useState(false);
   const [showRenameModal, setShowRenameModal] = useState(false);
   const [showRemoveModal, setShowRemoveModal] = useState(false);
@@ -41,14 +34,12 @@ const ChatPage = () => {
   const token = useSelector((state) => state.auth.token);
   const username = useSelector((state) => state.auth.user);
 
-  // Загружаем список каналов и сообщений при монтировании
   useEffect(() => {
     const headers = { Authorization: `Bearer ${token}` };
     dispatch(fetchChannels(headers));
     dispatch(fetchMessages(headers));
   }, [dispatch, token]);
 
-  // Подключаем сокет для новых сообщений
   useEffect(() => {
     socket.on('newMessage', (messageData) => {
       dispatch(messagesActions.addMessage(messageData));
@@ -73,7 +64,6 @@ const ChatPage = () => {
     if (!trimmed) return;
 
     const sanitized = leoProfanity.clean(trimmed);
-
     const payload = {
       channelId: currentChannelId,
       body: sanitized,
@@ -81,7 +71,6 @@ const ChatPage = () => {
     };
 
     try {
-      // Отправляем сообщение напрямую
       await fetch('/api/v1/messages', {
         method: 'POST',
         headers: {
@@ -102,7 +91,6 @@ const ChatPage = () => {
       <Header />
       <div className="container h-100 my-4 overflow-hidden rounded shadow">
         <div className="row h-100 bg-white flex-md-row">
-          {/* Левая панель (список каналов) */}
           <div className="col-4 col-md-2 border-end px-0 bg-light flex-column h-100 d-flex">
             <div className="d-flex mt-1 justify-content-between mb-2 ps-4 pe-2 p-4">
               <b>{t('chat.channelsTitle')}</b>
@@ -124,7 +112,10 @@ const ChatPage = () => {
               </button>
             </div>
 
-            <ul className="nav flex-column nav-pills nav-fill px-2 mb-3 overflow-auto h-100 d-block" id="channels-box">
+            <ul
+              className="nav flex-column nav-pills nav-fill px-2 mb-3 overflow-auto h-100 d-block"
+              id="channels-box"
+            >
               {channels.map((channel) => (
                 <li className="nav-item w-100" key={channel.id}>
                   <div className="btn-group d-flex">
@@ -142,7 +133,9 @@ const ChatPage = () => {
                       <Dropdown as={ButtonGroup}>
                         <Dropdown.Toggle
                           split
-                          variant={channel.id === currentChannelId ? 'secondary' : 'light'}
+                          variant={
+                            channel.id === currentChannelId ? 'secondary' : 'light'
+                          }
                           id={`dropdown-${channel.id}`}
                         >
                           <span className="visually-hidden">
@@ -175,7 +168,6 @@ const ChatPage = () => {
             </ul>
           </div>
 
-          {/* Правая часть – список сообщений и форма отправки */}
           <div className="col p-0 h-100">
             <div className="d-flex flex-column h-100">
               <div className="bg-light mb-4 p-3 shadow-sm small">
@@ -187,7 +179,10 @@ const ChatPage = () => {
                 </span>
               </div>
 
-              <div id="messages-box" className="chat-messages overflow-auto px-5">
+              <div
+                id="messages-box"
+                className="chat-messages overflow-auto px-5"
+              >
                 {messages.map((msg) => (
                   <div key={msg.id} className="text-break mb-2">
                     <b>{msg.username || 'user'}:</b> {msg.body}
@@ -196,7 +191,11 @@ const ChatPage = () => {
               </div>
 
               <div className="mt-auto px-5 py-3">
-                <form className="py-1 border rounded-2" onSubmit={handleSubmit} noValidate>
+                <form
+                  className="py-1 border rounded-2"
+                  onSubmit={handleSubmit}
+                  noValidate
+                >
                   <div className="input-group has-validation">
                     <input
                       name="body"
@@ -218,7 +217,7 @@ const ChatPage = () => {
                         fill="currentColor"
                         viewBox="0 0 16 16"
                       >
-                        <path d="M15.854 7.646a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L14.293 8H1.5a.5.5 0 0 1 0-1h12.793l-2.147-2.146a.5.5 0 1 1 .708-.708l3 3z"/>
+                        <path d="M15.854 7.646a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L14.293 8H1.5a.5.5 0 0 1 0-1h12.793l-2.147-2.146a.5.5 0 1 1 .708-.708l3 3z" />
                       </svg>
                       <span className="visually-hidden">
                         {t('chat.form.send')}
@@ -232,7 +231,6 @@ const ChatPage = () => {
         </div>
       </div>
 
-      {/* Модальные окна */}
       <AddChannelModal
         show={showAddModal}
         handleClose={() => setShowAddModal(false)}

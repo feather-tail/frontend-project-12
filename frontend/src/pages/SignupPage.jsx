@@ -4,7 +4,15 @@ import { useNavigate } from 'react-router-dom';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
-import { Container, Row, Col, Card, Button, Form as RBForm, FloatingLabel } from 'react-bootstrap';
+import {
+  Container,
+  Row,
+  Col,
+  Card,
+  Button,
+  Form as RBForm,
+  FloatingLabel,
+} from 'react-bootstrap';
 import apiRoutes from '../services/route.js';
 import { initializeAuth } from '../store/authSlice.js';
 import Header from '../components/Header.jsx';
@@ -60,7 +68,11 @@ const SignupPage = () => {
               >
                 {({ errors, touched, isSubmitting }) => (
                   <Form>
-                    <FloatingLabel controlId="username" label="Имя пользователя" className="mb-3">
+                    <FloatingLabel
+                      controlId="username"
+                      label="Имя пользователя"
+                      className="mb-3"
+                    >
                       <Field
                         as={RBForm.Control}
                         name="username"
@@ -72,7 +84,11 @@ const SignupPage = () => {
                       </RBForm.Control.Feedback>
                     </FloatingLabel>
 
-                    <FloatingLabel controlId="password" label="Пароль" className="mb-3">
+                    <FloatingLabel
+                      controlId="password"
+                      label="Пароль"
+                      className="mb-3"
+                    >
                       <Field
                         as={RBForm.Control}
                         name="password"
@@ -85,7 +101,11 @@ const SignupPage = () => {
                       </RBForm.Control.Feedback>
                     </FloatingLabel>
 
-                    <FloatingLabel controlId="confirmPassword" label="Подтвердите пароль" className="mb-4">
+                    <FloatingLabel
+                      controlId="confirmPassword"
+                      label="Подтвердите пароль"
+                      className="mb-4"
+                    >
                       <Field
                         as={RBForm.Control}
                         name="confirmPassword"
@@ -98,7 +118,12 @@ const SignupPage = () => {
                       </RBForm.Control.Feedback>
                     </FloatingLabel>
 
-                    <Button type="submit" variant="primary" className="w-100" disabled={isSubmitting}>
+                    <Button
+                      type="submit"
+                      variant="primary"
+                      className="w-100"
+                      disabled={isSubmitting}
+                    >
                       Зарегистрироваться
                     </Button>
                   </Form>

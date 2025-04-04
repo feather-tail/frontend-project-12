@@ -1,6 +1,5 @@
 import { createSlice, createEntityAdapter } from '@reduxjs/toolkit';
 import { createSelector } from 'reselect';
-
 import { fetchMessages } from './fetchData.js';
 import { channelsActions } from './channelsSlice.js';
 
@@ -21,7 +20,6 @@ const messagesSlice = createSlice({
         const idsToRemove = Object.values(state.entities)
           .filter((msg) => msg.channelId === removedChannelId)
           .map((msg) => msg.id);
-
         messagesAdapter.removeMany(state, idsToRemove);
       })
       .addCase(fetchMessages.fulfilled, (state, { payload }) => {
@@ -34,10 +32,10 @@ export const { actions: messagesActions } = messagesSlice;
 export default messagesSlice.reducer;
 
 const messagesSelectors = messagesAdapter.getSelectors((state) => state.messages);
-
 export const selectAllMessages = messagesSelectors.selectAll;
 
 export const selectCurrentChannelMessages = createSelector(
   [selectAllMessages, (state) => state.channels.currentChannelId],
-  (allMessages, currentChannelId) => allMessages.filter((m) => m.channelId === currentChannelId),
+  (allMessages, currentChannelId) =>
+    allMessages.filter((m) => m.channelId === currentChannelId),
 );

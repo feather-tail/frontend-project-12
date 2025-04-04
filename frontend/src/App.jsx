@@ -15,6 +15,7 @@ import profanityInit from './services/initProfanity.js';
 
 function App() {
   profanityInit();
+
   const savedToken = localStorage.getItem('token');
   store.dispatch(initializeAuth(savedToken));
 
@@ -22,11 +23,11 @@ function App() {
     <Provider store={store}>
       <BrowserRouter>
         <Routes>
-          <Route path='*' element={<Page404 />} />
-          <Route path='login' element={<LoginPage />} />
-          <Route path='signup' element={<SignupPage />} />
+          <Route path="*" element={<Page404 />} />
+          <Route path="login" element={<LoginPage />} />
+          <Route path="signup" element={<SignupPage />} />
           <Route element={<ProtectedRoute />}>
-            <Route path='/' element={<ChatPage />} />
+            <Route path="/" element={<ChatPage />} />
           </Route>
         </Routes>
         <ToastContainer />

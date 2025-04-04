@@ -16,7 +16,7 @@
       "password": "Пароль"
     },
     "button": "Войти",
-    "errorInvalid": "Неверный логин или пароль"
+    "errorInvalid": "Неверные имя пользователя или пароль"
   },
   "signup": {
     "title": "Регистрация",
@@ -74,12 +74,13 @@
   "addChannel": {
     "title": "Добавить канал",
     "placeholder": "Имя канала",
-    "error": "Ошибка при создании канала"
+    "error": "Ошибка при создании канала",
+    "addButton": "+"
   },
   "notifications": {
     "fetchError": "Ошибка при загрузке данных",
-    "networkError": "Проблема с сетью. Проверьте подключение",
-    "channelCreated": "Канал успешно создан",
+    "networkError": "Ошибка соединения",
+    "channelCreated": "Канал создан",
     "channelRenamed": "Канал переименован",
     "channelRemoved": "Канал удалён"
   }

@@ -10,7 +10,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
 
 import { selectAllChannels, channelsActions } from '../store/channelsSlice.js';
-import apiRoutes from '../services/route.js';
+import apiRoutes, { getAuthHeader } from '../services/route.js';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import leoProfanity from 'leo-profanity';
@@ -20,12 +20,10 @@ const RenameChannelModal = ({ show, handleClose, channel }) => {
   const channels = useSelector(selectAllChannels);
   const { t } = useTranslation();
 
-  // Исключаем текущее имя канала из списка, чтобы не блокировать ввод того же самого
   const channelNames = channels
     .map((ch) => ch.name)
     .filter((name) => name !== channel?.name);
 
-  // Фокус и выделение при открытии модалки
   const inputRef = useRef(null);
   useEffect(() => {
     if (show && inputRef.current) {
@@ -40,8 +38,8 @@ const RenameChannelModal = ({ show, handleClose, channel }) => {
 
   const validationSchema = Yup.object({
     name: Yup.string()
-      .min(3, t('renameChannel.errors.min3'))    // "Не менее 3 символов"
-      .max(20, t('renameChannel.errors.max20'))  // "Не более 20 символов"
+      .min(3, t('renameChannel.errors.min3'))
+      .max(20, t('renameChannel.errors.max20'))
       .required(t('renameChannel.errors.required'))
       .notOneOf(channelNames, t('renameChannel.errors.nameExists')),
   });
@@ -49,27 +47,22 @@ const RenameChannelModal = ({ show, handleClose, channel }) => {
   const handleSubmit = async ({ name }, { setSubmitting, setErrors }) => {
     try {
       const sanitizedName = leoProfanity.clean(name);
-      const token = localStorage.getItem('token');
-      const headers = { Authorization: `Bearer ${token}` };
+      const headers = getAuthHeader();
 
-      // Запрос на переименование
       const { data } = await axios.patch(
         apiRoutes.channelPath(channel.id),
         { name: sanitizedName },
         { headers },
       );
 
-      // Обновляем Redux
       dispatch(channelsActions.renameChannel({
         id: channel.id,
         changes: { name: data.name },
       }));
 
       toast.success(t('notifications.channelRenamed'));
-
       handleClose();
     } catch (err) {
-      // Общая ошибка, если что-то пошло не так
       setErrors({ name: t('renameChannel.error') });
       console.error(err);
     } finally {

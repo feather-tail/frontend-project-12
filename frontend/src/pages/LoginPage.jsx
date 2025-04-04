@@ -2,11 +2,18 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
-
-import { Container, Row, Col, Card, Button, Image, Form as RBForm, FloatingLabel } from 'react-bootstrap';
+import {
+  Container,
+  Row,
+  Col,
+  Card,
+  Button,
+  Image,
+  Form as RBForm,
+  FloatingLabel,
+} from 'react-bootstrap';
 import { loginUser } from '../store/authSlice.js';
 import { useNavigate } from 'react-router-dom';
-
 import Header from '../components/Header.jsx';
 import { useTranslation } from 'react-i18next';
 
@@ -51,10 +58,14 @@ const LoginPage = () => {
               <Col md={6} className="mt-3 mt-md-0">
                 <h1 className="text-center mb-4">{t('login.title')}</h1>
 
-                {error && <div style={{ color: 'red' }}>
-                  {error === 'Неверный логин или пароль'
-                    ? t('login.errorInvalid')
-                    : error}</div>}
+                {error && (
+                  <div style={{ color: 'red' }}>
+                    {error === 'Неверный логин или пароль'
+                      ? t('login.errorInvalid')
+                      : error}
+                  </div>
+                )}
+
                 <Formik
                   initialValues={{ username: '', password: '' }}
                   validationSchema={LoginSchema}
@@ -112,8 +123,8 @@ const LoginPage = () => {
 
             <Card.Footer className="p-4">
               <div className="text-center">
-              <span>{t('login.noAccount')}</span>{' '}
-              <Card.Link href="/signup">{t('login.signupLink')}</Card.Link>
+                <span>{t('login.noAccount')}</span>{' '}
+                <Card.Link href="/signup">{t('login.signupLink')}</Card.Link>
               </div>
             </Card.Footer>
           </Card>

@@ -10,11 +10,10 @@ import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
 
 import { selectAllChannels, channelsActions } from '../store/channelsSlice.js';
-import apiRoutes from '../services/route.js';
+import apiRoutes, { getAuthHeader } from '../services/route.js';
 import { useTranslation } from 'react-i18next';
 
 import { toast } from 'react-toastify';
-
 import leoProfanity from 'leo-profanity';
 
 const AddChannelModal = ({ show, handleClose }) => {
@@ -23,7 +22,6 @@ const AddChannelModal = ({ show, handleClose }) => {
   const channelNames = channels.map((ch) => ch.name);
   const { t } = useTranslation();
 
-  // Ссылка на input, чтобы фокусировать при появлении окна
   const inputRef = useRef(null);
   useEffect(() => {
     if (show && inputRef.current) {
@@ -31,7 +29,6 @@ const AddChannelModal = ({ show, handleClose }) => {
     }
   }, [show]);
 
-  // Схема валидации названия
   const validationSchema = Yup.object({
     name: Yup.string()
       .min(3, 'Не менее 3 символов')
@@ -43,22 +40,20 @@ const AddChannelModal = ({ show, handleClose }) => {
   const handleSubmit = async ({ name }, { setSubmitting, setErrors }) => {
     try {
       const sanitizedName = leoProfanity.clean(name);
-      const token = localStorage.getItem('token');
-      const headers = { Authorization: `Bearer ${token}` };
+      const headers = getAuthHeader();
 
-      // Отправляем запрос на создание канала
-      const { data } = await axios.post(apiRoutes.channelsPath(), { name: sanitizedName }, { headers });
-      // После успешного ответа сразу добавляем канал в Redux и переключаемся
+      const { data } = await axios.post(
+        apiRoutes.channelsPath(),
+        { name: sanitizedName },
+        { headers },
+      );
+
       dispatch(channelsActions.addChannel(data));
       dispatch(channelsActions.changeChannel(data.id));
 
       toast.success(t('notifications.channelCreated'));
-
-      // Закрываем модал
       handleClose();
     } catch (err) {
-      // Ловим и выводим возможную ошибку
-      // (В реальном проекте лучше обработать более детально)
       setErrors({ name: 'Ошибка при создании канала' });
       console.error(err);
     } finally {
@@ -81,13 +76,15 @@ const AddChannelModal = ({ show, handleClose }) => {
           <Form as={FormikForm}>
             <Modal.Body>
               <Form.Group controlId="channelName">
-                <Form.Label className="visually-hidden">{t('addChannel.placeholder')}</Form.Label>
+                <Form.Label className="visually-hidden">
+                  {t('addChannel.placeholder')}
+                </Form.Label>
                 <Field
                   as={Form.Control}
                   name="name"
                   type="text"
                   placeholder={t('addChannel.placeholder')}
-                  ref={inputRef} // для фокуса при открытии
+                  ref={inputRef}
                 />
                 <div className="invalid-feedback d-block">
                   <ErrorMessage name="name" />
@@ -96,10 +93,18 @@ const AddChannelModal = ({ show, handleClose }) => {
             </Modal.Body>
 
             <Modal.Footer>
-              <Button variant="secondary" onClick={handleClose} disabled={isSubmitting}>
+              <Button
+                variant="secondary"
+                onClick={handleClose}
+                disabled={isSubmitting}
+              >
                 {t('modal.cancel')}
               </Button>
-              <Button variant="primary" type="submit" disabled={isSubmitting}>
+              <Button
+                variant="primary"
+                type="submit"
+                disabled={isSubmitting}
+              >
                 {t('modal.submit')}
               </Button>
             </Modal.Footer>

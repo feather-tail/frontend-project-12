@@ -1,7 +1,5 @@
-/* channelsSlice.js */
 import { createSlice, createEntityAdapter } from '@reduxjs/toolkit';
 import { createSelector } from 'reselect';
-
 import { fetchChannels } from './fetchData.js';
 
 const channelsAdapter = createEntityAdapter();
@@ -18,17 +16,13 @@ const channelsSlice = createSlice({
     removeChannel: (state, { payload: removedChannelId }) => {
       channelsAdapter.removeOne(state, removedChannelId);
 
-      // Если удалённый канал был текущим, переключимся на канал 'general'
-      // или, если его нет, на первый доступный
       if (state.currentChannelId === removedChannelId) {
-        // Находим сущность с name === 'general'
         const allEntities = Object.values(state.entities);
         const generalChannel = allEntities.find((ch) => ch.name === 'general');
 
         if (generalChannel) {
           state.currentChannelId = generalChannel.id;
         } else {
-          // Если вдруг нет канала general, переключаемся на первый из списка
           const [firstId] = state.ids;
           state.currentChannelId = firstId ?? null;
         }
@@ -63,5 +57,6 @@ export const selectCurrentChannelId = (state) => state.channels.currentChannelId
 
 export const selectCurrentChannel = createSelector(
   [selectAllChannels, selectCurrentChannelId],
-  (allChannels, currentChannelId) => allChannels.find((c) => c.id === currentChannelId),
+  (allChannels, currentChannelId) =>
+    allChannels.find((c) => c.id === currentChannelId),
 );
