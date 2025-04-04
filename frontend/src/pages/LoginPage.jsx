@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
@@ -20,8 +20,15 @@ import { useTranslation } from 'react-i18next';
 const LoginPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const isAuth = useSelector((state) => state.auth.isAuth);
   const { error } = useSelector((state) => state.auth);
   const { t } = useTranslation();
+
+  useEffect(() => {
+    if (isAuth) {
+      navigate('/');
+    }
+  }, [isAuth, navigate]);
 
   const LoginSchema = Yup.object().shape({
     username: Yup.string()
@@ -54,7 +61,6 @@ const LoginPage = () => {
                   alt={t('login.title')}
                 />
               </Col>
-
               <Col md={6} className="mt-3 mt-md-0">
                 <h1 className="text-center mb-4">{t('login.title')}</h1>
 
@@ -120,7 +126,6 @@ const LoginPage = () => {
                 </Formik>
               </Col>
             </Card.Body>
-
             <Card.Footer className="p-4">
               <div className="text-center">
                 <span>{t('login.noAccount')}</span>{' '}
