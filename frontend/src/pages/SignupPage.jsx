@@ -5,9 +5,9 @@ import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
 import { Container, Row, Col, Card, Button, Form as RBForm, FloatingLabel } from 'react-bootstrap';
-import apiRoutes from './routes/route.js';
-import { initializeAuth } from './slices/authSlice';
-import Header from './Header.jsx';
+import apiRoutes from '../services/route.js';
+import { initializeAuth } from '../store/authSlice.js';
+import Header from '../components/Header.jsx';
 
 const SignupSchema = Yup.object().shape({
   username: Yup.string()
@@ -22,7 +22,7 @@ const SignupSchema = Yup.object().shape({
     .required('Обязательное поле'),
 });
 
-const PageSignup = () => {
+const SignupPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -112,4 +112,4 @@ const PageSignup = () => {
   );
 };
 
-export default PageSignup;
+export default SignupPage;

@@ -9,8 +9,8 @@ import * as Yup from 'yup';
 import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
 
-import { selectAllChannels, channelsActions } from '../slices/channelsSlice.js';
-import apiRoutes from '../routes/route.js';
+import { selectAllChannels, channelsActions } from '../store/channelsSlice.js';
+import apiRoutes from '../services/route.js';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import leoProfanity from 'leo-profanity';

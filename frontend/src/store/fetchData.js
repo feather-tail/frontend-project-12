@@ -1,8 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import apiRoutes from '../routes/route.js';
+import apiRoutes from '../services/route.js';
 import { toast } from 'react-toastify';
-import i18n from '../i18n.js';
+import i18n from '../services/i18n.js';
 
 export const fetchChannels = createAsyncThunk(
   'channels/fetchChannels',

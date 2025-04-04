@@ -4,13 +4,13 @@ import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 
 import { Container, Row, Col, Card, Button, Image, Form as RBForm, FloatingLabel } from 'react-bootstrap';
-import { loginUser } from './slices/authSlice';
+import { loginUser } from '../store/authSlice.js';
 import { useNavigate } from 'react-router-dom';
 
-import Header from './Header.jsx';
+import Header from '../components/Header.jsx';
 import { useTranslation } from 'react-i18next';
 
-const PageLogin = () => {
+const LoginPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { error } = useSelector((state) => state.auth);
@@ -123,4 +123,4 @@ const PageLogin = () => {
   );
 };
 
-export default PageLogin;
+export default LoginPage;

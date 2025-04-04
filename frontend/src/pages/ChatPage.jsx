@@ -2,27 +2,27 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Dropdown, ButtonGroup } from 'react-bootstrap';
 
-import { fetchChannels, fetchMessages } from './slices/fetchData.js';
+import { fetchChannels, fetchMessages } from '../store/fetchData.js';
 import {
   selectAllChannels,
   selectCurrentChannel,
   selectCurrentChannelId,
   channelsActions,
-} from './slices/channelsSlice.js';
+} from '../store/channelsSlice.js';
 
 import {
   selectCurrentChannelMessages,
   messagesActions,
-} from './slices/messagesSlice.js';
+} from '../store/messagesSlice.js';
 
-import socket from './initSocket';
+import socket from '../services/initSocket';
 
 // Модальные окна
-import AddChannelModal from './modals/AddChannel.jsx';
-import RenameChannelModal from './modals/RenameChannel.jsx';
-import RemoveChannelModal from './modals/RemoveChannel.jsx';
+import AddChannelModal from '../modals/AddChannel.jsx';
+import RenameChannelModal from '../modals/RenameChannel.jsx';
+import RemoveChannelModal from '../modals/RemoveChannel.jsx';
 
-import Header from './Header.jsx';
+import Header from '../components/Header.jsx';
 import { useTranslation } from 'react-i18next';
 import leoProfanity from 'leo-profanity';
 

@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { Navbar, Container, Button } from 'react-bootstrap';
-import { logout } from './slices/authSlice';
+import { logout } from '../store/authSlice';
 import { useTranslation } from 'react-i18next';
 
 const Header = () => {

@@ -1,17 +1,17 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { store } from './slices/store';
-import PageLogin from './PageLogin.jsx';
-import PageSignup from './PageSignup.jsx';
-import { Page404 } from './Page404.jsx';
-import { initializeAuth } from './slices/authSlice';
-import ProtectedRoute from './ProtectedRoute.jsx';
-import ChatPage from './ChatPage.jsx';
-import './i18n.js';
+import { store } from './store/store.js';
+import LoginPage from './pages/LoginPage.jsx';
+import SignupPage from './pages/SignupPage.jsx';
+import { Page404 } from './pages/Page404.jsx';
+import { initializeAuth } from './store/authSlice.js';
+import ProtectedRoute from './components/ProtectedRoute.jsx';
+import ChatPage from './pages/ChatPage.jsx';
+import './services/i18n.js';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import profanityInit from './initProfanity.js';
+import profanityInit from './services/initProfanity.js';
 
 function App() {
   profanityInit();
@@ -23,8 +23,8 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path='*' element={<Page404 />} />
-          <Route path='login' element={<PageLogin />} />
-          <Route path='signup' element={<PageSignup />} />
+          <Route path='login' element={<LoginPage />} />
+          <Route path='signup' element={<SignupPage />} />
           <Route element={<ProtectedRoute />}>
             <Route path='/' element={<ChatPage />} />
           </Route>

@@ -3,8 +3,8 @@ import { Modal, Button } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import axios from 'axios';
 
-import { channelsActions } from '../slices/channelsSlice.js';
-import apiRoutes from '../routes/route.js';
+import { channelsActions } from '../store/channelsSlice.js';
+import apiRoutes from '../services/route.js';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 
