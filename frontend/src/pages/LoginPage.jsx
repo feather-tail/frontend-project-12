@@ -49,7 +49,7 @@ const LoginPage = () => {
             <Card.Body className="row p-5">
               <Col md={6} className="d-flex align-items-center justify-content-center">
                 <Image
-                  src="/assets/avatar-DIE1AEpS.jpg"
+                  src="https://frontend-chat-ru.hexlet.app/assets/avatar-DIE1AEpS.jpg"
                   roundedCircle
                   alt={t('login.title')}
                 />

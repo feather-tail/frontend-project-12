@@ -16,23 +16,25 @@ import {
 import apiRoutes from '../services/route.js';
 import { initializeAuth } from '../store/authSlice.js';
 import Header from '../components/Header.jsx';
-
-const SignupSchema = Yup.object().shape({
-  username: Yup.string()
-    .min(3, 'От 3 до 20 символов')
-    .max(20, 'От 3 до 20 символов')
-    .required('Обязательное поле'),
-  password: Yup.string()
-    .min(6, 'Не менее 6 символов')
-    .required('Обязательное поле'),
-  confirmPassword: Yup.string()
-    .oneOf([Yup.ref('password'), null], 'Пароли должны совпадать')
-    .required('Обязательное поле'),
-});
+import { useTranslation } from 'react-i18next';
 
 const SignupPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { t } = useTranslation();
+
+  const SignupSchema = Yup.object().shape({
+    username: Yup.string()
+      .min(3, t('signup.errors.min3'))
+      .max(20, t('signup.errors.max20'))
+      .required(t('signup.errors.required')),
+    password: Yup.string()
+      .min(6, t('signup.errors.min6'))
+      .required(t('signup.errors.required')),
+    confirmPassword: Yup.string()
+      .oneOf([Yup.ref('password'), null], t('signup.errors.passwordsNotMatch'))
+      .required(t('signup.errors.required')),
+  });
 
   const handleSubmit = async ({ username, password }, { setSubmitting, setErrors }) => {
     try {
@@ -44,9 +46,9 @@ const SignupPage = () => {
       navigate('/');
     } catch (error) {
       if (error.response?.status === 409) {
-        setErrors({ username: 'Пользователь с таким именем уже существует' });
+        setErrors({ username: t('signup.errors.userExists') });
       } else {
-        setErrors({ username: 'Ошибка регистрации. Попробуйте ещё раз.' });
+        setErrors({ username: t('signup.errorSignup') });
       }
     } finally {
       setSubmitting(false);
@@ -60,7 +62,7 @@ const SignupPage = () => {
         <Col xs={12} md={8} xxl={6}>
           <Card className="shadow-sm">
             <Card.Body className="p-5">
-              <h1 className="text-center mb-4">Регистрация</h1>
+              <h1 className="text-center mb-4">{t('signup.title')}</h1>
               <Formik
                 initialValues={{ username: '', password: '', confirmPassword: '' }}
                 validationSchema={SignupSchema}
@@ -70,13 +72,13 @@ const SignupPage = () => {
                   <Form>
                     <FloatingLabel
                       controlId="username"
-                      label="Имя пользователя"
+                      label={t('signup.username')}
                       className="mb-3"
                     >
                       <Field
                         as={RBForm.Control}
                         name="username"
-                        placeholder="Имя пользователя"
+                        placeholder={t('signup.username')}
                         isInvalid={touched.username && !!errors.username}
                       />
                       <RBForm.Control.Feedback type="invalid">
@@ -86,14 +88,14 @@ const SignupPage = () => {
 
                     <FloatingLabel
                       controlId="password"
-                      label="Пароль"
+                      label={t('signup.password')}
                       className="mb-3"
                     >
                       <Field
                         as={RBForm.Control}
                         name="password"
                         type="password"
-                        placeholder="Пароль"
+                        placeholder={t('signup.password')}
                         isInvalid={touched.password && !!errors.password}
                       />
                       <RBForm.Control.Feedback type="invalid">
@@ -103,14 +105,14 @@ const SignupPage = () => {
 
                     <FloatingLabel
                       controlId="confirmPassword"
-                      label="Подтвердите пароль"
+                      label={t('signup.confirmPassword')}
                       className="mb-4"
                     >
                       <Field
                         as={RBForm.Control}
                         name="confirmPassword"
                         type="password"
-                        placeholder="Подтвердите пароль"
+                        placeholder={t('signup.confirmPassword')}
                         isInvalid={touched.confirmPassword && !!errors.confirmPassword}
                       />
                       <RBForm.Control.Feedback type="invalid">
@@ -124,7 +126,7 @@ const SignupPage = () => {
                       className="w-100"
                       disabled={isSubmitting}
                     >
-                      Зарегистрироваться
+                      {t('signup.button')}
                     </Button>
                   </Form>
                 )}

@@ -8,11 +8,9 @@ import {
 import * as Yup from 'yup';
 import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
-
 import { selectAllChannels, channelsActions } from '../store/channelsSlice.js';
 import apiRoutes, { getAuthHeader } from '../services/route.js';
 import { useTranslation } from 'react-i18next';
-
 import { toast } from 'react-toastify';
 import leoProfanity from 'leo-profanity';
 
@@ -31,10 +29,10 @@ const AddChannelModal = ({ show, handleClose }) => {
 
   const validationSchema = Yup.object({
     name: Yup.string()
-      .min(3, 'Не менее 3 символов')
-      .max(20, 'Не более 20 символов')
-      .required('Обязательное поле')
-      .notOneOf(channelNames, 'Имя уже существует'),
+      .min(3, t('renameChannel.errors.min3'))
+      .max(20, t('renameChannel.errors.max20'))
+      .required(t('renameChannel.errors.required'))
+      .notOneOf(channelNames, t('renameChannel.errors.nameExists')),
   });
 
   const handleSubmit = async ({ name }, { setSubmitting, setErrors }) => {
@@ -54,7 +52,7 @@ const AddChannelModal = ({ show, handleClose }) => {
       toast.success(t('notifications.channelCreated'));
       handleClose();
     } catch (err) {
-      setErrors({ name: 'Ошибка при создании канала' });
+      setErrors({ name: t('addChannel.error') });
       console.error(err);
     } finally {
       setSubmitting(false);

@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import i18n from '../services/i18n.js';
 
 export const loginUser = createAsyncThunk(
   'auth/loginUser',
@@ -9,9 +10,9 @@ export const loginUser = createAsyncThunk(
       return response.data;
     } catch (error) {
       if (error.response && error.response.status === 401) {
-        return rejectWithValue('Неверный логин или пароль');
+        return rejectWithValue(i18n.t('login.errorInvalid'));
       }
-      return rejectWithValue(error.response?.data?.message || 'Ошибка сервера');
+      return rejectWithValue(error.response?.data?.message || i18n.t('notifications.networkError'));
     }
   },
 );

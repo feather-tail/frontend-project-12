@@ -87,8 +87,9 @@ const ChatPage = () => {
   };
 
   return (
-    <>
+    <div className="d-flex flex-column h-100">
       <Header />
+
       <div className="container h-100 my-4 overflow-hidden rounded shadow">
         <div className="row h-100 bg-white flex-md-row">
           <div className="col-4 col-md-2 border-end px-0 bg-light flex-column h-100 d-flex">
@@ -118,7 +119,7 @@ const ChatPage = () => {
             >
               {channels.map((channel) => (
                 <li className="nav-item w-100" key={channel.id}>
-                  <div className="btn-group d-flex">
+                  <div className="btn-group dropdown d-flex">
                     <button
                       type="button"
                       className={`w-100 rounded-0 text-start btn ${
@@ -134,7 +135,9 @@ const ChatPage = () => {
                         <Dropdown.Toggle
                           split
                           variant={
-                            channel.id === currentChannelId ? 'secondary' : 'light'
+                            channel.id === currentChannelId
+                              ? 'secondary'
+                              : 'light'
                           }
                           id={`dropdown-${channel.id}`}
                         >
@@ -245,7 +248,7 @@ const ChatPage = () => {
         handleClose={() => setShowRemoveModal(false)}
         channel={modalChannel}
       />
-    </>
+    </div>
   );
 };
 
