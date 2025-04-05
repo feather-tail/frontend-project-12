@@ -67,13 +67,7 @@ const LoginPage = () => {
               <Col md={6} className='mt-3 mt-md-0'>
                 <h1 className='text-center mb-4'>{t('login.title')}</h1>
 
-                {error && (
-                  <div style={{ color: 'red' }}>
-                    {error === 'Неверный логин или пароль'
-                      ? t('login.errorInvalid')
-                      : error}
-                  </div>
-                )}
+                {error && <div style={{ color: 'red' }}>{error}</div>}
 
                 <Formik
                   initialValues={{ username: '', password: '' }}
