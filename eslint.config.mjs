@@ -5,19 +5,21 @@ import reactHooks from 'eslint-plugin-react-hooks';
 import importPlugin from 'eslint-plugin-import';
 import jsxA11y from 'eslint-plugin-jsx-a11y';
 import testingLibrary from 'eslint-plugin-testing-library';
+import prettierPlugin from 'eslint-plugin-prettier';
+import eslintConfigPrettier from 'eslint-config-prettier';
 
 export default [
   {
     ignores: ['frontend/dist/**/*', 'node_modules/**/*'],
   },
-  eslintConfigPrettier,
   {
-    plugins: { prettier },
+    plugins: { prettier: prettierPlugin },
     rules: {
       'prettier/prettier': 'error',
     },
   },
   js.configs.recommended,
+  eslintConfigPrettier,
   {
     files: ['**/*.{js,jsx}'],
     languageOptions: {
