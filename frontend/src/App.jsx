@@ -13,7 +13,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import profanityInit from './services/initProfanity.js';
 
-function App() {
+const App = () => {
   profanityInit();
 
   const savedToken = localStorage.getItem('token');

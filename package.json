@@ -39,5 +39,17 @@
     "rollbar": "^2.26.4",
     "socket.io-client": "^4.8.1",
     "yup": "^1.6.1"
+  },
+  "devDependencies": {
+    "@babel/eslint-parser": "^7.27.0",
+    "@babel/preset-react": "^7.26.3",
+    "@eslint/js": "^9.24.0",
+    "eslint": "^9.24.0",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-jsx-a11y": "^6.10.2",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-testing-library": "^7.1.1",
+    "globals": "^16.0.0"
   }
 }
