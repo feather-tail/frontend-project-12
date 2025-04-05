@@ -1,15 +1,15 @@
-import React, { useRef, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { useTranslation } from 'react-i18next';
-import { Modal, Button, Form } from 'react-bootstrap';
-import { toast } from 'react-toastify';
-import { Formik, Form as FormikForm, Field, ErrorMessage } from 'formik';
-import * as Yup from 'yup';
 import axios from 'axios';
+import { ErrorMessage, Field, Form as FormikForm, Formik } from 'formik';
 import leoProfanity from 'leo-profanity';
-import { selectAllChannels, channelsActions } from '../store/channelsSlice.js';
-import apiRoutes, { getAuthHeader } from '../services/route.js';
+import React, { useEffect, useRef } from 'react';
+import { Button, Form, Modal } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
+import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
+import * as Yup from 'yup';
 
+import apiRoutes, { getAuthHeader } from '../services/route.js';
+import { channelsActions, selectAllChannels } from '../store/channelsSlice.js';
 
 const AddChannelModal = ({ show, handleClose }) => {
   const dispatch = useDispatch();

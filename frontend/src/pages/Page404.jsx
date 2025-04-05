@@ -1,7 +1,6 @@
 import React from 'react';
+import { Button, Col, Container, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { Container, Row, Col, Button } from 'react-bootstrap';
-
 
 export const Page404 = () => {
   return (

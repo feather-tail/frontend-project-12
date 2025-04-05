@@ -1,28 +1,25 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useTranslation } from 'react-i18next';
-import { Dropdown, ButtonGroup } from 'react-bootstrap';
 import leoProfanity from 'leo-profanity';
+import React, { useEffect, useState } from 'react';
+import { ButtonGroup, Dropdown } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
+import { useDispatch, useSelector } from 'react-redux';
+
+import Header from '../components/Header.jsx';
+import AddChannelModal from '../modals/AddChannel.jsx';
+import RemoveChannelModal from '../modals/RemoveChannel.jsx';
+import RenameChannelModal from '../modals/RenameChannel.jsx';
 import socket from '../services/initSocket';
 import {
-  fetchChannels,
-  fetchMessages,
-} from '../store/fetchData.js';
-import {
+  channelsActions,
   selectAllChannels,
   selectCurrentChannel,
   selectCurrentChannelId,
-  channelsActions,
 } from '../store/channelsSlice.js';
+import { fetchChannels, fetchMessages } from '../store/fetchData.js';
 import {
-  selectCurrentChannelMessages,
   messagesActions,
+  selectCurrentChannelMessages,
 } from '../store/messagesSlice.js';
-import AddChannelModal from '../modals/AddChannel.jsx';
-import RenameChannelModal from '../modals/RenameChannel.jsx';
-import RemoveChannelModal from '../modals/RemoveChannel.jsx';
-import Header from '../components/Header.jsx';
-
 
 const ChatPage = () => {
   const dispatch = useDispatch();

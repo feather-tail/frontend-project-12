@@ -1,23 +1,23 @@
+import axios from 'axios';
+import { Field, Form, Formik } from 'formik';
 import React from 'react';
+import {
+  Button,
+  Card,
+  Col,
+  Container,
+  FloatingLabel,
+  Form as RBForm,
+  Row,
+} from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-import axios from 'axios';
-import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
-import {
-  Container,
-  Row,
-  Col,
-  Card,
-  Button,
-  Form as RBForm,
-  FloatingLabel,
-} from 'react-bootstrap';
+
 import Header from '../components/Header.jsx';
 import apiRoutes from '../services/route.js';
 import { initializeAuth } from '../store/authSlice.js';
-
 
 const SignupPage = () => {
   const dispatch = useDispatch();

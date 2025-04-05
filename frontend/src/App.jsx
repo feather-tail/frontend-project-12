@@ -1,17 +1,19 @@
+import 'react-toastify/dist/ReactToastify.css';
+import './services/i18n.js';
+
 import React from 'react';
 import { Provider } from 'react-redux';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import { store } from './store/store.js';
-import LoginPage from './pages/LoginPage.jsx';
-import SignupPage from './pages/SignupPage.jsx';
-import { Page404 } from './pages/Page404.jsx';
-import { initializeAuth } from './store/authSlice.js';
+
 import ProtectedRoute from './components/ProtectedRoute.jsx';
 import ChatPage from './pages/ChatPage.jsx';
-import './services/i18n.js';
+import LoginPage from './pages/LoginPage.jsx';
+import { Page404 } from './pages/Page404.jsx';
+import SignupPage from './pages/SignupPage.jsx';
 import profanityInit from './services/initProfanity.js';
+import { initializeAuth } from './store/authSlice.js';
+import { store } from './store/store.js';
 
 const App = () => {
   profanityInit();

@@ -1,22 +1,22 @@
+import { Field, Form, Formik } from 'formik';
 import React, { useEffect } from 'react';
+import {
+  Button,
+  Card,
+  Col,
+  Container,
+  FloatingLabel,
+  Form as RBForm,
+  Image,
+  Row,
+} from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
-import {
-  Container,
-  Row,
-  Col,
-  Card,
-  Button,
-  Image,
-  Form as RBForm,
-  FloatingLabel,
-} from 'react-bootstrap';
+
 import Header from '../components/Header.jsx';
 import { loginUser } from '../store/authSlice.js';
-
 
 const LoginPage = () => {
   const dispatch = useDispatch();

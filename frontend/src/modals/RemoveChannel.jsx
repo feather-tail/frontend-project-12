@@ -1,11 +1,12 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
-import { useTranslation } from 'react-i18next';
-import { Modal, Button } from 'react-bootstrap';
-import { toast } from 'react-toastify';
 import axios from 'axios';
-import { channelsActions } from '../store/channelsSlice.js';
+import React from 'react';
+import { Button, Modal } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
+import { useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
+
 import apiRoutes, { getAuthHeader } from '../services/route.js';
+import { channelsActions } from '../store/channelsSlice.js';
 
 const RemoveChannelModal = ({ show, handleClose, channel }) => {
   const dispatch = useDispatch();

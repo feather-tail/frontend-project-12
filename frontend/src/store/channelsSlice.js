@@ -1,5 +1,6 @@
-import { createSlice, createEntityAdapter } from '@reduxjs/toolkit';
+import { createEntityAdapter, createSlice } from '@reduxjs/toolkit';
 import { createSelector } from 'reselect';
+
 import { fetchChannels } from './fetchData.js';
 
 const channelsAdapter = createEntityAdapter();
