@@ -1,0 +1,69 @@
+---
+parser: "@babel/eslint-parser"
+
+env:
+  browser: true
+  es2021: true
+  jest: true
+
+globals:
+  test: true
+  expect: true
+
+extends:
+  - airbnb
+  - plugin:react/recommended
+  - plugin:react-hooks/recommended
+  - plugin:jest/recommended
+
+parserOptions:
+  requireConfigFile: false
+  babelOptions:
+    presets:
+      - "@babel/preset-react"
+  ecmaVersion: latest
+  sourceType: module
+  ecmaFeatures:
+    jsx: true
+
+plugins:
+  - react
+  - jest
+
+rules:
+  import/extensions: 0
+  import/no-unresolved: 0
+  react/prop-types: 0
+  no-console: 0
+  react/react-in-jsx-scope: 0
+  no-underscore-dangle: [2, { "allow": ["__filename", "__dirname"] }]
+  react/function-component-definition: [2, { "namedComponents": "arrow-function" }]
+  testing-library/no-debug: 0
+  react/jsx-filename-extension: [1, { "extensions": [".js", ".jsx"] }]
+  arrow-body-style: error
+  object-curly-newline: error
+  react/jsx-one-expression-per-line: error
+  no-param-reassign:
+    - error
+    - props: true
+      ignorePropertyModificationsFor:
+        - state
+
+overrides:
+  - files: ["./frontend/src/store/**/*.js"]
+    rules:
+      no-param-reassign: off
+      import/prefer-default-export: off
+  - files: ["vite.config.js"]
+    rules:
+      import/no-extraneous-dependencies: off
+      no-param-reassign: off
+  - files: ["./frontend/src/**/*.js", "./frontend/src/**/*.jsx"]
+    rules:
+      import/no-extraneous-dependencies: off
+  - files: ["**/__tests__/**/*.js", "**/*.test.js", "**/*.test.jsx"]
+    env:
+      jest: true
+
+ignorePatterns:
+  - frontend/dist/**
