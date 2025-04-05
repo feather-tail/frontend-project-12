@@ -57,12 +57,15 @@ overrides:
     rules:
       import/no-extraneous-dependencies: off
       no-param-reassign: off
-  - files: ["frontend/src/**/*.js", "frontend/src/**/*.jsx"]
+  - files: ["**/src/**/*.js", "**/src/**/*.jsx"]
     rules:
       import/no-extraneous-dependencies: off
   - files: ["**/__tests__/**/*.js", "**/*.test.js", "**/*.test.jsx"]
     env:
       jest: true
+    globals:
+      test: true
+      expect: true
 
 ignorePatterns:
   - frontend/dist/**
