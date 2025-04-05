@@ -69,32 +69,32 @@ const AddChannelModal = ({ show, handleClose }) => {
         {({ isSubmitting }) => (
           <Form as={FormikForm}>
             <Modal.Body>
-              <Form.Group controlId='channelName'>
-                <Form.Label className='visually-hidden'>
+              <Form.Group controlId="channelName">
+                <Form.Label className="visually-hidden">
                   {t('addChannel.placeholder')}
                 </Form.Label>
                 <Field
                   as={Form.Control}
-                  name='name'
-                  type='text'
+                  name="name"
+                  type="text"
                   placeholder={t('addChannel.placeholder')}
                   ref={inputRef}
                 />
-                <div className='invalid-feedback d-block'>
-                  <ErrorMessage name='name' />
+                <div className="invalid-feedback d-block">
+                  <ErrorMessage name="name" />
                 </div>
               </Form.Group>
             </Modal.Body>
 
             <Modal.Footer>
               <Button
-                variant='secondary'
+                variant="secondary"
                 onClick={handleClose}
                 disabled={isSubmitting}
               >
                 {t('modal.cancel')}
               </Button>
-              <Button variant='primary' type='submit' disabled={isSubmitting}>
+              <Button variant="primary" type="submit" disabled={isSubmitting}>
                 {t('modal.submit')}
               </Button>
             </Modal.Footer>

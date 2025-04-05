@@ -7,9 +7,15 @@ import jsxA11y from 'eslint-plugin-jsx-a11y';
 import testingLibrary from 'eslint-plugin-testing-library';
 
 export default [
-  // 💡 игнорируем ненужные каталоги
   {
-    ignores: ['frontend/dist/**/*', 'node_modules/**/*']
+    ignores: ['frontend/dist/**/*', 'node_modules/**/*'],
+  },
+  eslintConfigPrettier,
+  {
+    plugins: { prettier },
+    rules: {
+      'prettier/prettier': 'error',
+    },
   },
   js.configs.recommended,
   {
@@ -19,13 +25,13 @@ export default [
       parserOptions: {
         requireConfigFile: false,
         babelOptions: {
-          presets: ['@babel/preset-react']
+          presets: ['@babel/preset-react'],
         },
         ecmaVersion: 'latest',
         sourceType: 'module',
         ecmaFeatures: {
-          jsx: true
-        }
+          jsx: true,
+        },
       },
       globals: {
         window: true,
@@ -34,20 +40,20 @@ export default [
         console: true,
         fetch: true,
         test: true,
-        expect: true
-      }
+        expect: true,
+      },
     },
     plugins: {
       import: importPlugin,
       react,
       'react-hooks': reactHooks,
       'jsx-a11y': jsxA11y,
-      'testing-library': testingLibrary
+      'testing-library': testingLibrary,
     },
     settings: {
       react: {
-        version: 'detect'
-      }
+        version: 'detect',
+      },
     },
     rules: {
       'import/extensions': 0,
@@ -59,22 +65,22 @@ export default [
       'no-underscore-dangle': [
         2,
         {
-          allow: ['__filename', '__dirname']
-        }
+          allow: ['__filename', '__dirname'],
+        },
       ],
       'react/function-component-definition': [
         2,
         {
-          namedComponents: 'arrow-function'
-        }
+          namedComponents: 'arrow-function',
+        },
       ],
       'testing-library/no-debug': 0,
       'react/jsx-filename-extension': [
         1,
         {
-          extensions: ['.js', '.jsx']
-        }
-      ]
-    }
-  }
+          extensions: ['.js', '.jsx'],
+        },
+      ],
+    },
+  },
 ];

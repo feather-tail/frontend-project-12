@@ -23,17 +23,17 @@ const App = () => {
     <Provider store={store}>
       <BrowserRouter>
         <Routes>
-          <Route path='*' element={<Page404 />} />
-          <Route path='login' element={<LoginPage />} />
-          <Route path='signup' element={<SignupPage />} />
+          <Route path="*" element={<Page404 />} />
+          <Route path="login" element={<LoginPage />} />
+          <Route path="signup" element={<SignupPage />} />
           <Route element={<ProtectedRoute />}>
-            <Route path='/' element={<ChatPage />} />
+            <Route path="/" element={<ChatPage />} />
           </Route>
         </Routes>
         <ToastContainer />
       </BrowserRouter>
     </Provider>
   );
-}
+};
 
 export default App;

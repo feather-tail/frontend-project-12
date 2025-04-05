@@ -62,13 +62,13 @@ const SignupPage = () => {
   };
 
   return (
-    <Container fluid className='h-100 bg-light'>
+    <Container fluid className="h-100 bg-light">
       <Header />
-      <Row className='justify-content-center align-items-center h-100'>
+      <Row className="justify-content-center align-items-center h-100">
         <Col xs={12} md={8} xxl={6}>
-          <Card className='shadow-sm'>
-            <Card.Body className='p-5'>
-              <h1 className='text-center mb-4'>{t('signup.title')}</h1>
+          <Card className="shadow-sm">
+            <Card.Body className="p-5">
+              <h1 className="text-center mb-4">{t('signup.title')}</h1>
               <Formik
                 initialValues={{
                   username: '',
@@ -81,61 +81,61 @@ const SignupPage = () => {
                 {({ errors, touched, isSubmitting }) => (
                   <Form>
                     <FloatingLabel
-                      controlId='username'
+                      controlId="username"
                       label={t('signup.username')}
-                      className='mb-3'
+                      className="mb-3"
                     >
                       <Field
                         as={RBForm.Control}
-                        name='username'
+                        name="username"
                         placeholder={t('signup.username')}
                         isInvalid={touched.username && !!errors.username}
                       />
-                      <RBForm.Control.Feedback type='invalid'>
+                      <RBForm.Control.Feedback type="invalid">
                         {errors.username}
                       </RBForm.Control.Feedback>
                     </FloatingLabel>
 
                     <FloatingLabel
-                      controlId='password'
+                      controlId="password"
                       label={t('signup.password')}
-                      className='mb-3'
+                      className="mb-3"
                     >
                       <Field
                         as={RBForm.Control}
-                        name='password'
-                        type='password'
+                        name="password"
+                        type="password"
                         placeholder={t('signup.password')}
                         isInvalid={touched.password && !!errors.password}
                       />
-                      <RBForm.Control.Feedback type='invalid'>
+                      <RBForm.Control.Feedback type="invalid">
                         {errors.password}
                       </RBForm.Control.Feedback>
                     </FloatingLabel>
 
                     <FloatingLabel
-                      controlId='confirmPassword'
+                      controlId="confirmPassword"
                       label={t('signup.confirmPassword')}
-                      className='mb-4'
+                      className="mb-4"
                     >
                       <Field
                         as={RBForm.Control}
-                        name='confirmPassword'
-                        type='password'
+                        name="confirmPassword"
+                        type="password"
                         placeholder={t('signup.confirmPassword')}
                         isInvalid={
                           touched.confirmPassword && !!errors.confirmPassword
                         }
                       />
-                      <RBForm.Control.Feedback type='invalid'>
+                      <RBForm.Control.Feedback type="invalid">
                         {errors.confirmPassword}
                       </RBForm.Control.Feedback>
                     </FloatingLabel>
 
                     <Button
-                      type='submit'
-                      variant='primary'
-                      className='w-100'
+                      type="submit"
+                      variant="primary"
+                      className="w-100"
                       disabled={isSubmitting}
                     >
                       {t('signup.button')}

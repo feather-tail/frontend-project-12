@@ -48,24 +48,24 @@ const LoginPage = () => {
   };
 
   return (
-    <Container fluid className='h-100 bg-light'>
+    <Container fluid className="h-100 bg-light">
       <Header />
-      <Row className='justify-content-center align-items-center h-100'>
+      <Row className="justify-content-center align-items-center h-100">
         <Col xs={12} md={8} xxl={6}>
-          <Card className='shadow-sm'>
-            <Card.Body className='row p-5'>
+          <Card className="shadow-sm">
+            <Card.Body className="row p-5">
               <Col
                 md={6}
-                className='d-flex align-items-center justify-content-center'
+                className="d-flex align-items-center justify-content-center"
               >
                 <Image
-                  src='https://frontend-chat-ru.hexlet.app/assets/avatar-DIE1AEpS.jpg'
+                  src="https://frontend-chat-ru.hexlet.app/assets/avatar-DIE1AEpS.jpg"
                   roundedCircle
                   alt={t('login.title')}
                 />
               </Col>
-              <Col md={6} className='mt-3 mt-md-0'>
-                <h1 className='text-center mb-4'>{t('login.title')}</h1>
+              <Col md={6} className="mt-3 mt-md-0">
+                <h1 className="text-center mb-4">{t('login.title')}</h1>
 
                 {error && <div style={{ color: 'red' }}>{error}</div>}
 
@@ -77,43 +77,43 @@ const LoginPage = () => {
                   {({ errors, touched, isSubmitting }) => (
                     <Form>
                       <FloatingLabel
-                        controlId='username'
+                        controlId="username"
                         label={t('login.placeholder.username')}
-                        className='mb-3'
+                        className="mb-3"
                       >
                         <Field
                           as={RBForm.Control}
-                          type='text'
-                          name='username'
+                          type="text"
+                          name="username"
                           placeholder={t('login.placeholder.username')}
                           isInvalid={touched.username && !!errors.username}
                         />
-                        <RBForm.Control.Feedback type='invalid'>
+                        <RBForm.Control.Feedback type="invalid">
                           {errors.username}
                         </RBForm.Control.Feedback>
                       </FloatingLabel>
 
                       <FloatingLabel
-                        controlId='password'
+                        controlId="password"
                         label={t('login.placeholder.password')}
-                        className='mb-4'
+                        className="mb-4"
                       >
                         <Field
                           as={RBForm.Control}
-                          type='password'
-                          name='password'
+                          type="password"
+                          name="password"
                           placeholder={t('login.placeholder.password')}
                           isInvalid={touched.password && !!errors.password}
                         />
-                        <RBForm.Control.Feedback type='invalid'>
+                        <RBForm.Control.Feedback type="invalid">
                           {errors.password}
                         </RBForm.Control.Feedback>
                       </FloatingLabel>
 
                       <Button
-                        type='submit'
-                        variant='outline-primary'
-                        className='w-100 mb-3'
+                        type="submit"
+                        variant="outline-primary"
+                        className="w-100 mb-3"
                         disabled={isSubmitting}
                       >
                         {t('login.button')}
@@ -123,10 +123,10 @@ const LoginPage = () => {
                 </Formik>
               </Col>
             </Card.Body>
-            <Card.Footer className='p-4'>
-              <div className='text-center'>
+            <Card.Footer className="p-4">
+              <div className="text-center">
                 <span>{t('login.noAccount')}</span>{' '}
-                <Card.Link href='/signup'>{t('login.signupLink')}</Card.Link>
+                <Card.Link href="/signup">{t('login.signupLink')}</Card.Link>
               </div>
             </Card.Footer>
           </Card>

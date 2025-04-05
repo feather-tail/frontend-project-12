@@ -38,10 +38,10 @@ const RemoveChannelModal = ({ show, handleClose, channel }) => {
         {t('removeChannel.body', { channelName: channel.name })}
       </Modal.Body>
       <Modal.Footer>
-        <Button variant='secondary' onClick={handleClose}>
+        <Button variant="secondary" onClick={handleClose}>
           {t('modal.cancel')}
         </Button>
-        <Button variant='danger' onClick={handleRemove}>
+        <Button variant="danger" onClick={handleRemove}>
           {t('modal.remove')}
         </Button>
       </Modal.Footer>

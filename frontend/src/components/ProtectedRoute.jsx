@@ -6,7 +6,7 @@ const ProtectedRoute = () => {
   const isAuth = useSelector((state) => state.auth.isAuth);
 
   if (!isAuth) {
-    return <Navigate to='/login' replace />;
+    return <Navigate to="/login" replace />;
   }
   return <Outlet />;
 };

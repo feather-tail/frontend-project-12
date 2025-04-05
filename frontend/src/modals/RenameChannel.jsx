@@ -81,32 +81,32 @@ const RenameChannelModal = ({ show, handleClose, channel }) => {
         {({ isSubmitting }) => (
           <Form as={FormikForm}>
             <Modal.Body>
-              <Form.Group controlId='channelName'>
-                <Form.Label className='visually-hidden'>
+              <Form.Group controlId="channelName">
+                <Form.Label className="visually-hidden">
                   {t('renameChannel.placeholder')}
                 </Form.Label>
                 <Field
                   as={Form.Control}
-                  name='name'
-                  type='text'
+                  name="name"
+                  type="text"
                   placeholder={t('renameChannel.placeholder')}
                   innerRef={inputRef}
                 />
-                <div className='invalid-feedback d-block'>
-                  <ErrorMessage name='name' />
+                <div className="invalid-feedback d-block">
+                  <ErrorMessage name="name" />
                 </div>
               </Form.Group>
             </Modal.Body>
 
             <Modal.Footer>
               <Button
-                variant='secondary'
+                variant="secondary"
                 onClick={handleClose}
                 disabled={isSubmitting}
               >
                 {t('modal.cancel')}
               </Button>
-              <Button variant='primary' type='submit' disabled={isSubmitting}>
+              <Button variant="primary" type="submit" disabled={isSubmitting}>
                 {t('modal.save')}
               </Button>
             </Modal.Footer>
