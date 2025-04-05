@@ -5,15 +5,14 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
-
 import ProtectedRoute from './components/ProtectedRoute.jsx';
 import ChatPage from './pages/ChatPage.jsx';
 import LoginPage from './pages/LoginPage.jsx';
-import { Page404 } from './pages/Page404.jsx';
+import Page404 from './pages/Page404.jsx';
 import SignupPage from './pages/SignupPage.jsx';
 import profanityInit from './services/initProfanity.js';
 import { initializeAuth } from './store/authSlice.js';
-import { store } from './store/store.js';
+import store from './store/store.js';
 
 const App = () => {
   profanityInit();

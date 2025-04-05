@@ -1,5 +1,7 @@
 import axios from 'axios';
-import { ErrorMessage, Field, Form as FormikForm, Formik } from 'formik';
+import {
+  ErrorMessage, Field, Form as FormikForm, Formik,
+} from 'formik';
 import leoProfanity from 'leo-profanity';
 import React, { useEffect, useRef } from 'react';
 import { Button, Form, Modal } from 'react-bootstrap';

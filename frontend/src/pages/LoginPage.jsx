@@ -14,7 +14,6 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
-
 import Header from '../components/Header.jsx';
 import { loginUser } from '../store/authSlice.js';
 
@@ -126,7 +125,8 @@ const LoginPage = () => {
             </Card.Body>
             <Card.Footer className="p-4">
               <div className="text-center">
-                <span>{t('login.noAccount')}</span>{' '}
+                <span>{t('login.noAccount')}</span>
+                {' '}
                 <Card.Link href="/signup">{t('login.signupLink')}</Card.Link>
               </div>
             </Card.Footer>

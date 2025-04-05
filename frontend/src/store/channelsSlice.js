@@ -55,11 +55,9 @@ const channelsSelectors = channelsAdapter.getSelectors(
 );
 export const selectAllChannels = channelsSelectors.selectAll;
 export const selectChannelById = channelsSelectors.selectById;
-export const selectCurrentChannelId = (state) =>
-  state.channels.currentChannelId;
+export const selectCurrentChannelId = (state) => state.channels.currentChannelId;
 
 export const selectCurrentChannel = createSelector(
   [selectAllChannels, selectCurrentChannelId],
-  (allChannels, currentChannelId) =>
-    allChannels.find((c) => c.id === currentChannelId),
+  (allChannels, currentChannelId) => allChannels.find((c) => c.id === currentChannelId),
 );
