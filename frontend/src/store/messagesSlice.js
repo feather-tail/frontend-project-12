@@ -16,12 +16,15 @@ const messagesSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(channelsActions.removeChannel, (state, { payload: removedChannelId }) => {
-        const idsToRemove = Object.values(state.entities)
-          .filter((msg) => msg.channelId === removedChannelId)
-          .map((msg) => msg.id);
-        messagesAdapter.removeMany(state, idsToRemove);
-      })
+      .addCase(
+        channelsActions.removeChannel,
+        (state, { payload: removedChannelId }) => {
+          const idsToRemove = Object.values(state.entities)
+            .filter((msg) => msg.channelId === removedChannelId)
+            .map((msg) => msg.id);
+          messagesAdapter.removeMany(state, idsToRemove);
+        },
+      )
       .addCase(fetchMessages.fulfilled, (state, { payload }) => {
         messagesAdapter.setAll(state, payload);
       });
@@ -31,7 +34,9 @@ const messagesSlice = createSlice({
 export const { actions: messagesActions } = messagesSlice;
 export default messagesSlice.reducer;
 
-const messagesSelectors = messagesAdapter.getSelectors((state) => state.messages);
+const messagesSelectors = messagesAdapter.getSelectors(
+  (state) => state.messages,
+);
 export const selectAllMessages = messagesSelectors.selectAll;
 
 export const selectCurrentChannelMessages = createSelector(

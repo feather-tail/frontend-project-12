@@ -17,13 +17,13 @@ const Header = () => {
   };
 
   return (
-    <Navbar bg="white" variant="light" expand="lg" className="shadow-sm">
+    <Navbar bg='white' variant='light' expand='lg' className='shadow-sm'>
       <Container>
-        <Navbar.Brand as={Link} to="/">
+        <Navbar.Brand as={Link} to='/'>
           {t('header.brand')}
         </Navbar.Brand>
         {isAuth && (
-          <Button variant="primary" onClick={handleLogout}>
+          <Button variant='primary' onClick={handleLogout}>
             {t('header.logout')}
           </Button>
         )}

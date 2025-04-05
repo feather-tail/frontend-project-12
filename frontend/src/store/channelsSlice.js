@@ -36,24 +36,26 @@ const channelsSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder
-      .addCase(fetchChannels.fulfilled, (state, { payload }) => {
-        channelsAdapter.setAll(state, payload);
+    builder.addCase(fetchChannels.fulfilled, (state, { payload }) => {
+      channelsAdapter.setAll(state, payload);
 
-        if (payload.length > 0 && !state.currentChannelId) {
-          state.currentChannelId = payload[0].id;
-        }
-      });
+      if (payload.length > 0 && !state.currentChannelId) {
+        state.currentChannelId = payload[0].id;
+      }
+    });
   },
 });
 
 export const { actions: channelsActions } = channelsSlice;
 export default channelsSlice.reducer;
 
-const channelsSelectors = channelsAdapter.getSelectors((state) => state.channels);
+const channelsSelectors = channelsAdapter.getSelectors(
+  (state) => state.channels,
+);
 export const selectAllChannels = channelsSelectors.selectAll;
 export const selectChannelById = channelsSelectors.selectById;
-export const selectCurrentChannelId = (state) => state.channels.currentChannelId;
+export const selectCurrentChannelId = (state) =>
+  state.channels.currentChannelId;
 
 export const selectCurrentChannel = createSelector(
   [selectAllChannels, selectCurrentChannelId],

@@ -12,7 +12,9 @@ export const loginUser = createAsyncThunk(
       if (error.response && error.response.status === 401) {
         return rejectWithValue(i18n.t('login.errorInvalid'));
       }
-      return rejectWithValue(error.response?.data?.message || i18n.t('notifications.networkError'));
+      return rejectWithValue(
+        error.response?.data?.message || i18n.t('notifications.networkError'),
+      );
     }
   },
 );

@@ -1,14 +1,9 @@
 import React, { useRef, useEffect } from 'react';
-import {
-  Modal, Button, Form,
-} from 'react-bootstrap';
-import {
-  Formik, Form as FormikForm, Field, ErrorMessage,
-} from 'formik';
+import { Modal, Button, Form } from 'react-bootstrap';
+import { Formik, Form as FormikForm, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
-
 import { selectAllChannels, channelsActions } from '../store/channelsSlice.js';
 import apiRoutes, { getAuthHeader } from '../services/route.js';
 import { useTranslation } from 'react-i18next';
@@ -55,10 +50,12 @@ const RenameChannelModal = ({ show, handleClose, channel }) => {
         { headers },
       );
 
-      dispatch(channelsActions.renameChannel({
-        id: channel.id,
-        changes: { name: data.name },
-      }));
+      dispatch(
+        channelsActions.renameChannel({
+          id: channel.id,
+          changes: { name: data.name },
+        }),
+      );
 
       toast.success(t('notifications.channelRenamed'));
       handleClose();
@@ -84,36 +81,32 @@ const RenameChannelModal = ({ show, handleClose, channel }) => {
         {({ isSubmitting }) => (
           <Form as={FormikForm}>
             <Modal.Body>
-              <Form.Group controlId="channelName">
-                <Form.Label className="visually-hidden">
+              <Form.Group controlId='channelName'>
+                <Form.Label className='visually-hidden'>
                   {t('renameChannel.placeholder')}
                 </Form.Label>
                 <Field
                   as={Form.Control}
-                  name="name"
-                  type="text"
+                  name='name'
+                  type='text'
                   placeholder={t('renameChannel.placeholder')}
                   innerRef={inputRef}
                 />
-                <div className="invalid-feedback d-block">
-                  <ErrorMessage name="name" />
+                <div className='invalid-feedback d-block'>
+                  <ErrorMessage name='name' />
                 </div>
               </Form.Group>
             </Modal.Body>
 
             <Modal.Footer>
               <Button
-                variant="secondary"
+                variant='secondary'
                 onClick={handleClose}
                 disabled={isSubmitting}
               >
                 {t('modal.cancel')}
               </Button>
-              <Button
-                variant="primary"
-                type="submit"
-                disabled={isSubmitting}
-              >
+              <Button variant='primary' type='submit' disabled={isSubmitting}>
                 {t('modal.save')}
               </Button>
             </Modal.Footer>
