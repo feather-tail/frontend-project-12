@@ -1,6 +1,7 @@
 env:
   browser: true
   es2021: true
+  jest: true
 extends:
   - eslint:recommended
   - plugin:react/recommended
@@ -21,6 +22,11 @@ rules:
   react/jsx-closing-bracket-location: 2
   react/destructuring-assignment: 2
   react/jsx-wrap-multilines: 2
+  no-param-reassign:
+    - error
+    - props: true
+      ignorePropertyModificationsFor:
+        - state
 settings:
   react:
     createClass: createReactClass
