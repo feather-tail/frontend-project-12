@@ -60,6 +60,9 @@ overrides:
   - files: ["frontend/src/**/*.js", "frontend/src/**/*.jsx"]
     rules:
       import/no-extraneous-dependencies: off
+  - files: ["**/__tests__/**/*.js", "**/*.test.js"]
+    env:
+      jest: true
 
 ignorePatterns:
   - frontend/dist/**
