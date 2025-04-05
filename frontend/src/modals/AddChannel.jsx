@@ -25,9 +25,9 @@ const AddChannelModal = ({ show, handleClose }) => {
 
   const validationSchema = Yup.object({
     name: Yup.string()
-      .min(3, t('renameChannel.errors.min3'))
-      .max(20, t('renameChannel.errors.max20'))
-      .required(t('renameChannel.errors.required'))
+      .min(3, t('signup.errors.min3'))
+      .max(20, t('signup.errors.max20'))
+      .required(t('signup.errors.required'))
       .notOneOf(channelNames, t('renameChannel.errors.nameExists')),
   });
 
