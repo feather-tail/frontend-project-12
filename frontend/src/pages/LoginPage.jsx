@@ -32,10 +32,10 @@ const LoginPage = () => {
 
   const LoginSchema = Yup.object().shape({
     username: Yup.string()
-      .min(5, t('login.errors.min5'))
+      .min(3, t('login.errors.min3'))
       .required(t('login.errors.required')),
     password: Yup.string()
-      .min(5, t('login.errors.min5'))
+      .min(3, t('login.errors.min3'))
       .required(t('login.errors.required')),
   });
 
