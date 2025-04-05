@@ -1,14 +1,14 @@
 import React, { useRef, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { Modal, Button, Form } from 'react-bootstrap';
+import { toast } from 'react-toastify';
 import { Formik, Form as FormikForm, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
+import leoProfanity from 'leo-profanity';
 import { selectAllChannels, channelsActions } from '../store/channelsSlice.js';
 import apiRoutes, { getAuthHeader } from '../services/route.js';
-import { useTranslation } from 'react-i18next';
-import { toast } from 'react-toastify';
-import leoProfanity from 'leo-profanity';
 
 const RenameChannelModal = ({ show, handleClose, channel }) => {
   const dispatch = useDispatch();

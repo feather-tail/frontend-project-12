@@ -1,9 +1,10 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import axios from 'axios';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
-import axios from 'axios';
 import {
   Container,
   Row,
@@ -13,10 +14,10 @@ import {
   Form as RBForm,
   FloatingLabel,
 } from 'react-bootstrap';
+import Header from '../components/Header.jsx';
 import apiRoutes from '../services/route.js';
 import { initializeAuth } from '../store/authSlice.js';
-import Header from '../components/Header.jsx';
-import { useTranslation } from 'react-i18next';
+
 
 const SignupPage = () => {
   const dispatch = useDispatch();

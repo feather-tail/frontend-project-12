@@ -1,7 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { Dropdown, ButtonGroup } from 'react-bootstrap';
-import { fetchChannels, fetchMessages } from '../store/fetchData.js';
+import leoProfanity from 'leo-profanity';
+import socket from '../services/initSocket';
+import {
+  fetchChannels,
+  fetchMessages,
+} from '../store/fetchData.js';
 import {
   selectAllChannels,
   selectCurrentChannel,
@@ -12,13 +18,11 @@ import {
   selectCurrentChannelMessages,
   messagesActions,
 } from '../store/messagesSlice.js';
-import socket from '../services/initSocket';
 import AddChannelModal from '../modals/AddChannel.jsx';
 import RenameChannelModal from '../modals/RenameChannel.jsx';
 import RemoveChannelModal from '../modals/RemoveChannel.jsx';
 import Header from '../components/Header.jsx';
-import { useTranslation } from 'react-i18next';
-import leoProfanity from 'leo-profanity';
+
 
 const ChatPage = () => {
   const dispatch = useDispatch();
