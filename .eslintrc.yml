@@ -40,6 +40,11 @@ rules:
   arrow-body-style: error
   object-curly-newline: error
   react/jsx-one-expression-per-line: error
+  no-param-reassign:
+    - error
+    - props: true
+      ignorePropertyModificationsFor:
+        - state
 
 overrides:
   - files: ["src/store/**/*.js"]
