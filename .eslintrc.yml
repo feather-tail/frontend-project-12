@@ -1,6 +1,10 @@
 env:
   browser: true
   es2021: true
+  jest: true
+globals:
+  test: true
+  expect: true
 extends:
   - eslint:recommended
   - plugin:react/recommended
