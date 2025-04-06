@@ -49,7 +49,7 @@ const authSlice = createSlice({
         user,
       };
     },
-  },  
+  },
   extraReducers: (builder) => {
     builder
       .addCase(loginUser.pending, (state) => ({
@@ -74,7 +74,7 @@ const authSlice = createSlice({
         loading: false,
         error: action.payload,
       }));
-  },  
+  },
 });
 
 export const { logout, initializeAuth } = authSlice.actions;
