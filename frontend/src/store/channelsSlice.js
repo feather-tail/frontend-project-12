@@ -11,37 +11,46 @@ const channelsSlice = createSlice({
   name: 'channels',
   initialState,
   reducers: {
-    addChannel: channelsAdapter.addOne,
+    addChannel: (state, action) =>
+      channelsAdapter.addOne({ ...state }, action),
 
     removeChannel: (state, { payload: removedChannelId }) => {
-      channelsAdapter.removeOne(state, removedChannelId);
+      const newState = channelsAdapter.removeOne({ ...state }, removedChannelId);
 
-      if (state.currentChannelId === removedChannelId) {
-        const allEntities = Object.values(state.entities);
-        const generalChannel = allEntities.find((ch) => ch.name === 'general');
-
-        if (generalChannel) {
-          state.currentChannelId = generalChannel.id;
-        } else {
-          const [firstId] = state.ids;
-          state.currentChannelId = firstId ?? null;
-        }
+      const wasCurrent = state.currentChannelId === removedChannelId;
+      if (!wasCurrent) {
+        return newState;
       }
+
+      const allEntities = Object.values(newState.entities);
+      const generalChannel = allEntities.find((ch) => ch.name === 'general');
+
+      return {
+        ...newState,
+        currentChannelId: generalChannel?.id ?? newState.ids[0] ?? null,
+      };
     },
 
-    renameChannel: channelsAdapter.updateOne,
+    renameChannel: (state, action) =>
+      channelsAdapter.updateOne({ ...state }, action),
 
-    changeChannel: (state, { payload }) => {
-      state.currentChannelId = payload;
-    },
+    changeChannel: (state, { payload }) => ({
+      ...state,
+      currentChannelId: payload,
+    }),
   },
   extraReducers: (builder) => {
     builder.addCase(fetchChannels.fulfilled, (state, { payload }) => {
-      channelsAdapter.setAll(state, payload);
+      const newState = channelsAdapter.setAll({ ...state }, payload);
 
       if (payload.length > 0 && !state.currentChannelId) {
-        state.currentChannelId = payload[0].id;
+        return {
+          ...newState,
+          currentChannelId: payload[0].id,
+        };
       }
+
+      return newState;
     });
   },
 });

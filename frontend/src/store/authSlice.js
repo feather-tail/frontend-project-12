@@ -18,7 +18,6 @@ export const loginUser = createAsyncThunk(
     }
   },
 );
-
 const initialState = {
   isAuth: false,
   token: null,
@@ -26,7 +25,6 @@ const initialState = {
   loading: false,
   error: null,
 };
-
 const authSlice = createSlice({
   name: 'auth',
   initialState,
@@ -43,7 +41,6 @@ const authSlice = createSlice({
       if (!token) {
         return state;
       }
-  
       const user = localStorage.getItem('user');
       return {
         ...state,
@@ -64,7 +61,6 @@ const authSlice = createSlice({
         const { token, username } = action.payload;
         localStorage.setItem('token', token);
         localStorage.setItem('user', username);
-  
         return {
           ...state,
           loading: false,
