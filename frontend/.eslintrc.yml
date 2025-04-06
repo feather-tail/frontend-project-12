@@ -1,12 +1,16 @@
 env:
   browser: true
   es2021: true
+  jest: true
+
+globals:
+  test: true
+  expect: true
 
 extends:
-  - airbnb
+  - eslint:recommended
   - plugin:react/recommended
-  - plugin:functional/recommended
-  - plugin:react-hooks/recommended
+  - airbnb-base
 
 parserOptions:
   ecmaFeatures:
@@ -16,22 +20,43 @@ parserOptions:
 
 plugins:
   - react
-  - functional
 
 rules:
   import/extensions: 0
-  import/no-unresolved: 0
-  react/prop-types: 0
   no-console: 0
-  react/react-in-jsx-scope: 0
-  functional/no-conditional-statement: 0
-  functional/no-expression-statement: 0
-  functional/immutable-data: 0
-  functional/functional-parameters: 0
-  functional/no-try-statement: 0
-  functional/no-throw-statement: 0
-  functional/no-return-void: 0
-  no-underscore-dangle: [2, { "allow": ["__filename", "__dirname"] }]
-  react/function-component-definition: [2, { "namedComponents": "arrow-function" }]
-  testing-library/no-debug: 0
-  react/jsx-filename-extension: [1, { "extensions": [".js", ".jsx"] }]
+  react/prop-types: off
+  react/jsx-indent: [2, 2]
+  react/jsx-indent-props: [2, 2]
+  react/jsx-closing-bracket-location: 2
+  react/destructuring-assignment: 2
+  react/jsx-wrap-multilines: 2
+
+settings:
+  react:
+    createClass: createReactClass
+    pragma: React
+    fragment: Fragment
+    version: detect
+    flowVersion: '0.53'
+  propWrapperFunctions:
+    - forbidExtraProps
+    - property: freeze
+      object: Object
+    - property: myFavoriteWrapper
+    - property: forbidExtraProps
+      exact: true
+  componentWrapperFunctions:
+    - observer
+    - property: styled
+    - property: observer
+      object: Mobx
+    - property: observer
+      object: React
+  formComponents:
+    - CustomForm
+    - name: Form
+      formAttribute: endpoint
+  linkComponents:
+    - Hyperlink
+    - name: Link
+      linkAttribute: to
