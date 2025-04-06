@@ -2,57 +2,55 @@ env:
   browser: true
   es2021: true
   jest: true
-extends:
-  - eslint:recommended
-  - plugin:react/recommended
-  - airbnb-base
+
 parserOptions:
   ecmaFeatures:
     jsx: true
   ecmaVersion: latest
   sourceType: module
+
 plugins:
   - react
+  - import
+
 rules:
-  import/extensions: 0
-  no-console: 0
-  "react/prop-types": "off"
-  "react/jsx-indent": [2, 2]
-  "react/jsx-indent-props": [2, 2]
-  react/jsx-closing-bracket-location: 2
-  react/destructuring-assignment: 2
-  react/jsx-wrap-multilines: 2
+  no-unused-vars: error
+  no-undef: error
+  no-unreachable: error
+  no-mixed-spaces-and-tabs: error
+  no-console: off
+
   no-param-reassign:
     - error
     - props: true
       ignorePropertyModificationsFor:
         - state
+  import/no-extraneous-dependencies:
+    - error
+    - devDependencies: false
+  import/extensions: 0
+  import/no-unresolved: error
+  import/prefer-default-export: off
+  consistent-return: off
+  no-shadow: off
+  func-names: off
+  no-use-before-define: off
+  object-curly-newline: off
+  max-len:
+    - error
+    - code: 120
+
+  react/jsx-indent:
+    - error
+    - 2
+  react/jsx-indent-props:
+    - error
+    - 2
+  react/jsx-closing-bracket-location: error
+  react/destructuring-assignment: error
+  react/jsx-wrap-multilines: error
+  react/prop-types: off
+
 settings:
   react:
-    createClass: createReactClass
-    pragma: React
-    fragment: Fragment
     version: detect
-    flowVersion: '0.53'
-  propWrapperFunctions:
-    - forbidExtraProps
-    - property: freeze
-      object: Object
-    - property: myFavoriteWrapper
-    - property: forbidExtraProps
-      exact: true
-  componentWrapperFunctions:
-    - observer
-    - property: styled
-    - property: observer
-      object: Mobx
-    - property: observer
-      object: <pragma>
-  formComponents:
-    - CustomForm
-    - name: Form
-      formAttribute: endpoint
-  linkComponents:
-    - Hyperlink
-    - name: Link
-      linkAttribute: to
