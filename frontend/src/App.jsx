@@ -1,6 +1,5 @@
 import 'react-toastify/dist/ReactToastify.css';
 import './services/i18n.js';
-
 import React from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';

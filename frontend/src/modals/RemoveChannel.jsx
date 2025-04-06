@@ -4,7 +4,6 @@ import { Button, Modal } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
-
 import apiRoutes, { getAuthHeader } from '../services/route.js';
 import { channelsActions } from '../store/channelsSlice.js';
 

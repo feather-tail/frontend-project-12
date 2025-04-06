@@ -1,6 +1,5 @@
 import { createEntityAdapter, createSlice } from '@reduxjs/toolkit';
 import { createSelector } from 'reselect';
-
 import { channelsActions } from './channelsSlice.js';
 import { fetchMessages } from './fetchData.js';
 
