@@ -31,44 +31,54 @@ const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    logout(state) {
-      state.token = null;
-      state.isAuth = false;
-      state.user = null;
-      state.error = null;
-      state.loading = false;
+    logout() {
       localStorage.removeItem('token');
       localStorage.removeItem('user');
+      return {
+        ...initialState,
+      };
     },
     initializeAuth: (state, action) => {
       const token = action.payload;
-      if (token) {
-        state.isAuth = true;
-        state.token = token;
-        const user = localStorage.getItem('user');
-        state.user = user;
+      if (!token) {
+        return state;
       }
+  
+      const user = localStorage.getItem('user');
+      return {
+        ...state,
+        isAuth: true,
+        token,
+        user,
+      };
     },
-  },
+  },  
   extraReducers: (builder) => {
     builder
-      .addCase(loginUser.pending, (state) => {
-        state.error = null;
-        state.loading = true;
-      })
+      .addCase(loginUser.pending, (state) => ({
+        ...state,
+        loading: true,
+        error: null,
+      }))
       .addCase(loginUser.fulfilled, (state, action) => {
-        state.loading = false;
-        state.isAuth = true;
-        state.token = action.payload.token;
-        state.user = action.payload.username;
-        localStorage.setItem('token', action.payload.token);
-        localStorage.setItem('user', action.payload.username);
+        const { token, username } = action.payload;
+        localStorage.setItem('token', token);
+        localStorage.setItem('user', username);
+  
+        return {
+          ...state,
+          loading: false,
+          isAuth: true,
+          token,
+          user: username,
+        };
       })
-      .addCase(loginUser.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.payload;
-      });
-  },
+      .addCase(loginUser.rejected, (state, action) => ({
+        ...state,
+        loading: false,
+        error: action.payload,
+      }));
+  },  
 });
 
 export const { logout, initializeAuth } = authSlice.actions;
