@@ -11,7 +11,6 @@ const apiRoutes = {
   channelsPath: () => `${apiPath}/channels`,
   channelPath: (id) => `${apiPath}/channels/${id}`,
   messagesPath: () => `${apiPath}/messages`,
-  messagePath: (id) => `${apiPath}/messages/${id}`,
 };
 
 export default apiRoutes;
