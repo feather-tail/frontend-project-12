@@ -11,6 +11,7 @@ extends:
   - eslint:recommended
   - plugin:react/recommended
   - airbnb-base
+  - prettier
 
 parserOptions:
   ecmaFeatures:

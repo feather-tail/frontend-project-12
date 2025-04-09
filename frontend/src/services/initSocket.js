@@ -1,5 +1,5 @@
 import { io } from 'socket.io-client';
 
-const socket = io();
+const initSocket = () => io();
 
-export default socket;
+export default initSocket;
