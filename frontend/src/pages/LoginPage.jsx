@@ -39,14 +39,17 @@ const LoginPage = () => {
       .required(t('login.errors.required')),
   });
 
-  const handleSubmit = async (values, { setSubmitting }) => {
+  const handleSubmit = async (
+    values,
+    { setSubmitting },
+  ) => {
     const resultAction = await dispatch(loginUser(values));
     if (loginUser.fulfilled.match(resultAction)) {
       navigate('/');
     }
     setSubmitting(false);
   };
-
+  console.log('auth error:', error);
   return (
     <Container fluid className="h-100 bg-light">
       <Header />
@@ -65,12 +68,25 @@ const LoginPage = () => {
                 />
               </Col>
               <Col md={6} className="mt-3 mt-md-0">
-                <h1 className="text-center mb-4">{t('login.title')}</h1>
+                <h1 className="text-center mb-4">
+                  {t('login.title')}
+                </h1>
 
-                {error && <div style={{ color: 'red' }}>{error}</div>}
+                {/* исправленный блок отображения ошибки */}
+                {error && (
+                  <div
+                    className="alert alert-danger text-center"
+                    role="alert"
+                  >
+                    {error}
+                  </div>
+                )}
 
                 <Formik
-                  initialValues={{ username: '', password: '' }}
+                  initialValues={{
+                    username: '',
+                    password: '',
+                  }}
                   validationSchema={LoginSchema}
                   onSubmit={handleSubmit}
                 >
@@ -78,15 +94,22 @@ const LoginPage = () => {
                     <Form>
                       <FloatingLabel
                         controlId="username"
-                        label={t('login.placeholder.username')}
+                        label={t(
+                          'login.placeholder.username',
+                        )}
                         className="mb-3"
                       >
                         <Field
                           as={RBForm.Control}
                           type="text"
                           name="username"
-                          placeholder={t('login.placeholder.username')}
-                          isInvalid={touched.username && !!errors.username}
+                          placeholder={t(
+                            'login.placeholder.username',
+                          )}
+                          isInvalid={
+                            touched.username &&
+                            !!errors.username
+                          }
                         />
                         <RBForm.Control.Feedback type="invalid">
                           {errors.username}
@@ -95,15 +118,22 @@ const LoginPage = () => {
 
                       <FloatingLabel
                         controlId="password"
-                        label={t('login.placeholder.password')}
+                        label={t(
+                          'login.placeholder.password',
+                        )}
                         className="mb-4"
                       >
                         <Field
                           as={RBForm.Control}
                           type="password"
                           name="password"
-                          placeholder={t('login.placeholder.password')}
-                          isInvalid={touched.password && !!errors.password}
+                          placeholder={t(
+                            'login.placeholder.password',
+                          )}
+                          isInvalid={
+                            touched.password &&
+                            !!errors.password
+                          }
                         />
                         <RBForm.Control.Feedback type="invalid">
                           {errors.password}
@@ -126,7 +156,9 @@ const LoginPage = () => {
             <Card.Footer className="p-4">
               <div className="text-center">
                 <span>{t('login.noAccount')}</span>{' '}
-                <Card.Link href="/signup">{t('login.signupLink')}</Card.Link>
+                <Card.Link href="/signup">
+                  {t('login.signupLink')}
+                </Card.Link>
               </div>
             </Card.Footer>
           </Card>

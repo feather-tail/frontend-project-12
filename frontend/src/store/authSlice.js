@@ -1,19 +1,28 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import {
+  createAsyncThunk,
+  createSlice,
+} from '@reduxjs/toolkit';
 import axios from 'axios';
-import i18n from '../services/i18n.js';
+import { i18n } from '../services/i18n.js';
 
 export const loginUser = createAsyncThunk(
   'auth/loginUser',
   async (userData, { rejectWithValue }) => {
     try {
-      const response = await axios.post('/api/v1/login', userData);
+      const response = await axios.post(
+        '/api/v1/login',
+        userData,
+      );
       return response.data;
     } catch (error) {
       if (error.response && error.response.status === 401) {
-        return rejectWithValue(i18n.t('login.errorInvalid'));
+        return rejectWithValue(
+          i18n.t('login.errorInvalid'),
+        );
       }
       return rejectWithValue(
-        error.response?.data?.message || i18n.t('notifications.networkError'),
+        error.response?.data?.message ||
+          i18n.t('notifications.networkError'),
       );
     }
   },
