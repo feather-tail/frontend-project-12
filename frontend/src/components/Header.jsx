@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { logout } from '../store/authSlice';
+import paths from '../services/paths.js';
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -13,7 +14,7 @@ const Header = () => {
 
   const handleLogout = () => {
     dispatch(logout());
-    navigate('/login');
+    navigate(paths.login);
   };
 
   return (

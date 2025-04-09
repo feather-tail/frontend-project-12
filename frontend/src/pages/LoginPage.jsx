@@ -125,8 +125,7 @@ const LoginPage = () => {
             </Card.Body>
             <Card.Footer className="p-4">
               <div className="text-center">
-                <span>{t('login.noAccount')}</span>
-                {' '}
+                <span>{t('login.noAccount')}</span>{' '}
                 <Card.Link href="/signup">{t('login.signupLink')}</Card.Link>
               </div>
             </Card.Footer>
