@@ -1,5 +1,10 @@
 import axios from 'axios';
-import { ErrorMessage, Field, Form as FormikForm, Formik } from 'formik';
+import {
+  ErrorMessage,
+  Field,
+  Form as FormikForm,
+  Formik,
+} from 'formik';
 import leoProfanity from 'leo-profanity';
 import React, { useEffect, useRef } from 'react';
 import { Button, Form, Modal } from 'react-bootstrap';
@@ -7,8 +12,13 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import * as Yup from 'yup';
-import apiRoutes, { getAuthHeader } from '../services/route.js';
-import { channelsActions, selectAllChannels } from '../store/channelsSlice.js';
+import apiRoutes, {
+  getAuthHeader,
+} from '../services/route.js';
+import {
+  channelsActions,
+  selectAllChannels,
+} from '../store/channelsSlice.js';
 
 const AddChannelModal = ({ show, handleClose }) => {
   const dispatch = useDispatch();
@@ -28,10 +38,16 @@ const AddChannelModal = ({ show, handleClose }) => {
       .min(3, t('signup.errors.min3'))
       .max(20, t('signup.errors.max20'))
       .required(t('signup.errors.required'))
-      .notOneOf(channelNames, t('renameChannel.errors.nameExists')),
+      .notOneOf(
+        channelNames,
+        t('renameChannel.errors.nameExists'),
+      ),
   });
 
-  const handleSubmit = async ({ name }, { setSubmitting, setErrors }) => {
+  const handleSubmit = async (
+    { name },
+    { setSubmitting, setErrors },
+  ) => {
     try {
       const sanitizedName = leoProfanity.clean(name);
       const headers = getAuthHeader();
@@ -94,7 +110,11 @@ const AddChannelModal = ({ show, handleClose }) => {
               >
                 {t('modal.cancel')}
               </Button>
-              <Button variant="primary" type="submit" disabled={isSubmitting}>
+              <Button
+                variant="primary"
+                type="submit"
+                disabled={isSubmitting}
+              >
                 {t('modal.submit')}
               </Button>
             </Modal.Footer>
