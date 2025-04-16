@@ -1,6 +1,12 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, {
+  createContext,
+  useContext,
+  useState,
+} from 'react';
 
-const AuthContext = createContext();
+const AuthStateContext = createContext(null);
+
+const AuthActionsContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(() => localStorage.getItem('token'));
@@ -22,19 +28,27 @@ export const AuthProvider = ({ children }) => {
 
   const isAuth = Boolean(token);
 
-  const value = {
-    token,
-    user,
-    login,
-    logout,
-    isAuth,
-  };
-
   return (
-    <AuthContext.Provider value={value}>
-      {children}
-    </AuthContext.Provider>
+    <AuthStateContext.Provider value={{ token, user, isAuth }}>
+      <AuthActionsContext.Provider value={{ login, logout }}>
+        {children}
+      </AuthActionsContext.Provider>
+    </AuthStateContext.Provider>
   );
 };
 
-export const useAuth = () => useContext(AuthContext);
+export const useAuthState = () => {
+  const context = useContext(AuthStateContext);
+  if (context === null) {
+    throw new Error('useAuthState must be used within an AuthProvider');
+  }
+  return context;
+};
+
+export const useAuthActions = () => {
+  const context = useContext(AuthActionsContext);
+  if (context === null) {
+    throw new Error('useAuthActions must be used within an AuthProvider');
+  }
+  return context;
+};
