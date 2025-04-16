@@ -1,48 +1,56 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  showAddModal: false,
-  showRenameModal: false,
-  showRemoveModal: false,
-  modalChannel: null,
+  isAddModalOpen: false,
+  isRenameModalOpen: false,
+  isRemoveModalOpen: false,
+  channelToEdit: null,
 };
 
 const modalsSlice = createSlice({
   name: 'modals',
   initialState,
   reducers: {
-    openAddModal: (state) => ({
+    showAddModal: (state) => ({
       ...state,
-      showAddModal: true,
+      isAddModalOpen: true,
     }),
-    closeAddModal: (state) => ({
+    hideAddModal: (state) => ({
       ...state,
-      showAddModal: false,
-    }),
-
-    openRenameModal: (state, action) => ({
-      ...state,
-      showRenameModal: true,
-      modalChannel: action.payload,
-    }),
-    closeRenameModal: (state) => ({
-      ...state,
-      showRenameModal: false,
-      modalChannel: null,
+      isAddModalOpen: false,
     }),
 
-    openRemoveModal: (state, action) => ({
+    showRenameModal: (state, { payload }) => ({
       ...state,
-      showRemoveModal: true,
-      modalChannel: action.payload,
+      isRenameModalOpen: true,
+      channelToEdit: payload,
     }),
-    closeRemoveModal: (state) => ({
+    hideRenameModal: (state) => ({
       ...state,
-      showRemoveModal: false,
-      modalChannel: null,
+      isRenameModalOpen: false,
+      channelToEdit: null,
+    }),
+
+    showRemoveModal: (state, { payload }) => ({
+      ...state,
+      isRemoveModalOpen: true,
+      channelToEdit: payload,
+    }),
+    hideRemoveModal: (state) => ({
+      ...state,
+      isRemoveModalOpen: false,
+      channelToEdit: null,
     }),
   },
 });
 
-export const modalsActions = modalsSlice.actions;
+export const {
+  showAddModal,
+  hideAddModal,
+  showRenameModal,
+  hideRenameModal,
+  showRemoveModal,
+  hideRemoveModal,
+} = modalsSlice.actions;
+
 export default modalsSlice.reducer;
