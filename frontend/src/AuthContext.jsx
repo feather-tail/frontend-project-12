@@ -33,7 +33,7 @@ export const AuthProvider = ({ children }) => {
     login,
     logout,
     isAuth,
-  }), [token, user]);
+  }), [token, user, isAuth]);
 
   return (
     <AuthContext.Provider value={value}>
