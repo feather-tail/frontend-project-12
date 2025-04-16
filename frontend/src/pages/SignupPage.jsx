@@ -11,16 +11,15 @@ import {
   Row,
 } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import Header from '../components/Header.jsx';
 import apiRoutes from '../services/route.js';
-import { initializeAuth } from '../store/authSlice.js';
+import { useAuth } from '../AuthContext.jsx';
 import routes from '../services/clientRoutes.js';
 
 const SignupPage = () => {
-  const dispatch = useDispatch();
+  const { login } = useAuth();
   const navigate = useNavigate();
   const { t } = useTranslation();
 
@@ -47,9 +46,7 @@ const SignupPage = () => {
         password,
       });
       const { token, username: registeredUser } = response.data;
-      localStorage.setItem('token', token);
-      localStorage.setItem('user', registeredUser);
-      dispatch(initializeAuth(token));
+      login(token, registeredUser);
       navigate(routes.root);
     } catch (error) {
       if (error.response?.status === 409) {

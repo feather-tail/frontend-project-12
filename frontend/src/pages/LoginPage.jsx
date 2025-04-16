@@ -1,5 +1,5 @@
-import { Field, Form, Formik } from 'formik';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import {
   Button,
   Card,
@@ -10,19 +10,19 @@ import {
   Image,
   Row,
 } from 'react-bootstrap';
-import { useTranslation } from 'react-i18next';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { Field, Form, Formik } from 'formik';
 import * as Yup from 'yup';
+import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header.jsx';
-import { loginUser } from '../store/authSlice.js';
+import { useAuth } from '../AuthContext.jsx';
 import routes from '../services/clientRoutes.js';
+import apiRoutes from '../services/route.js';
 
 const LoginPage = () => {
-  const dispatch = useDispatch();
+  const { login, isAuth } = useAuth();
+  const [loginError, setLoginError] = useState(null);
   const navigate = useNavigate();
-  const isAuth = useSelector((state) => state.auth.isAuth);
-  const { error } = useSelector((state) => state.auth);
   const { t } = useTranslation();
 
   useEffect(() => {
@@ -40,12 +40,22 @@ const LoginPage = () => {
       .required(t('login.errors.required')),
   });
 
-  const handleSubmit = async (values, { setSubmitting }) => {
-    const resultAction = await dispatch(loginUser(values));
-    if (loginUser.fulfilled.match(resultAction)) {
-      navigate('/');
+  const handleSubmit = async ({ username, password }, { setSubmitting, setErrors }) => {
+    try {
+      const response = await axios.post(apiRoutes.loginPath(), { username, password });
+      const { token } = response.data;
+      login(token, username);
+      navigate(routes.root);
+    } catch (error) {
+      if (error.response?.status === 401) {
+        setErrors({ username: t('login.errorInvalid') });
+      } else {
+        setErrors({ username: t('notifications.networkError') });
+      }
+      setLoginError(error.message);
+    } finally {
+      setSubmitting(false);
     }
-    setSubmitting(false);
   };
 
   return (
@@ -68,7 +78,11 @@ const LoginPage = () => {
               <Col md={6} className="mt-3 mt-md-0">
                 <h1 className="text-center mb-4">{t('login.title')}</h1>
 
-                {error && <div style={{ color: 'red' }}>{error}</div>}
+                {loginError && (
+                  <div style={{ color: 'red' }} className="mb-3">
+                    {loginError}
+                  </div>
+                )}
 
                 <Formik
                   initialValues={{ username: '', password: '' }}

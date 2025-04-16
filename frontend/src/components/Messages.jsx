@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import leoProfanity from 'leo-profanity';
-
+import { useAuth } from '../AuthContext.jsx';
 import {
   selectCurrentChannel,
   selectCurrentChannelId,
@@ -16,8 +16,7 @@ const Messages = () => {
   const messages = useSelector(selectCurrentChannelMessages);
   const currentChannel = useSelector(selectCurrentChannel);
   const currentChannelId = useSelector(selectCurrentChannelId);
-  const username = useSelector((state) => state.auth.user);
-  const token = useSelector((state) => state.auth.token);
+  const { token, user: username } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();

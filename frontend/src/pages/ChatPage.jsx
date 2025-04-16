@@ -1,29 +1,24 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-
 import Header from '../components/Header.jsx';
 import Channels from '../components/Channels.jsx';
 import Messages from '../components/Messages.jsx';
-
 import { fetchChannels, fetchMessages } from '../store/fetchData.js';
 import { messagesActions } from '../store/messagesSlice.js';
-
 import {
   hideAddModal,
   hideRenameModal,
   hideRemoveModal,
 } from '../store/modalsSlice.js';
-
 import AddChannelModal from '../modals/AddChannel.jsx';
 import RenameChannelModal from '../modals/RenameChannel.jsx';
 import RemoveChannelModal from '../modals/RemoveChannel.jsx';
-
+import { useAuth } from '../AuthContext.jsx';
 import socket from '../services/initSocket.js';
 
 const ChatPage = () => {
   const dispatch = useDispatch();
-  const token = useSelector((state) => state.auth.token);
-  const username = useSelector((state) => state.auth.user);
+  const { token, user: username } = useAuth();
 
   const {
     isAddModalOpen,
