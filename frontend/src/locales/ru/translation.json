@@ -84,5 +84,11 @@
     "channelCreated": "Канал создан",
     "channelRenamed": "Канал переименован",
     "channelRemoved": "Канал удалён"
+  },
+  "auth": {
+    "errors": {
+      "outsideProviderState": "Авторизация недоступна. Компонент не обёрнут в AuthProvider.",
+      "outsideProviderActions": "Действия авторизации недоступны. Проверь структуру приложения."
+    }
   }
 }
