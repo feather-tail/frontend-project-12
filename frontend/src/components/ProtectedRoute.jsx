@@ -1,10 +1,10 @@
 import React from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
 import routes from '../services/clientRoutes.js';
-import { useAuthState } from '../AuthContext.jsx';
+import { useAuth } from '../AuthContext.jsx';
 
 const ProtectedRoute = () => {
-  const { isAuth } = useAuthState();
+  const { isAuth } = useAuth();
   return isAuth ? <Outlet /> : <Navigate to={routes.login} replace />;
 };
 

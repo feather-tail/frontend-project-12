@@ -15,13 +15,12 @@ import * as Yup from 'yup';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header.jsx';
-import { useAuthActions, useAuthState } from '../AuthContext.jsx';
+import { useAuth } from '../AuthContext.jsx';
 import routes from '../services/clientRoutes.js';
 import apiRoutes from '../services/route.js';
 
 const LoginPage = () => {
-  const { login } = useAuthActions();
-  const { isAuth } = useAuthState();
+  const { login, isAuth } = useAuth();
   const [loginError, setLoginError] = useState(null);
   const navigate = useNavigate();
   const { t } = useTranslation();
