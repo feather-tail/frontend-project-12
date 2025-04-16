@@ -17,6 +17,7 @@ import * as Yup from 'yup';
 import Header from '../components/Header.jsx';
 import apiRoutes from '../services/route.js';
 import { initializeAuth } from '../store/authSlice.js';
+import routes from '../services/clientRoutes.js';
 
 const SignupPage = () => {
   const dispatch = useDispatch();
@@ -49,7 +50,7 @@ const SignupPage = () => {
       localStorage.setItem('token', token);
       localStorage.setItem('user', registeredUser);
       dispatch(initializeAuth(token));
-      navigate('/');
+      navigate(routes.root);
     } catch (error) {
       if (error.response?.status === 409) {
         setErrors({ username: t('signup.errors.userExists') });

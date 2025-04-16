@@ -12,6 +12,7 @@ import SignupPage from './pages/SignupPage.jsx';
 import profanityInit from './services/initProfanity.js';
 import { initializeAuth } from './store/authSlice.js';
 import store from './store/store.js';
+import routes from './services/clientRoutes.js';
 
 const App = () => {
   profanityInit();
@@ -23,11 +24,11 @@ const App = () => {
     <Provider store={store}>
       <BrowserRouter>
         <Routes>
-          <Route path="*" element={<Page404 />} />
-          <Route path="login" element={<LoginPage />} />
-          <Route path="signup" element={<SignupPage />} />
+          <Route path={routes.notFound} element={<Page404 />} />
+          <Route path={routes.login} element={<LoginPage />} />
+          <Route path={routes.signup} element={<SignupPage />} />
           <Route element={<ProtectedRoute />}>
-            <Route path="/" element={<ChatPage />} />
+            <Route path={routes.root} element={<ChatPage />} />
           </Route>
         </Routes>
         <ToastContainer />

@@ -16,6 +16,7 @@ import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import Header from '../components/Header.jsx';
 import { loginUser } from '../store/authSlice.js';
+import routes from '../services/clientRoutes.js';
 
 const LoginPage = () => {
   const dispatch = useDispatch();
@@ -26,7 +27,7 @@ const LoginPage = () => {
 
   useEffect(() => {
     if (isAuth) {
-      navigate('/');
+      navigate(routes.root);
     }
   }, [isAuth, navigate]);
 
@@ -127,7 +128,7 @@ const LoginPage = () => {
               <div className="text-center">
                 <span>{t('login.noAccount')}</span>
                 {' '}
-                <Card.Link href="/signup">{t('login.signupLink')}</Card.Link>
+                <Card.Link href={routes.signup}>{t('login.signupLink')}</Card.Link>
               </div>
             </Card.Footer>
           </Card>

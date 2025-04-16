@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { logout } from '../store/authSlice';
+import routes from '../services/clientRoutes.js';
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -13,13 +14,13 @@ const Header = () => {
 
   const handleLogout = () => {
     dispatch(logout());
-    navigate('/login');
+    navigate(routes.login);
   };
 
   return (
     <Navbar bg="white" variant="light" expand="lg" className="shadow-sm">
       <Container>
-        <Navbar.Brand as={Link} to="/">
+        <Navbar.Brand as={Link} to={routes.root}>
           {t('header.brand')}
         </Navbar.Brand>
         {isAuth && (
