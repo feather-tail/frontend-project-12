@@ -1,8 +1,8 @@
 import { createEntityAdapter, createSlice } from '@reduxjs/toolkit';
 import { createSelector } from 'reselect';
-import { fetchChannels } from './fetchData.js';
 
 const channelsAdapter = createEntityAdapter();
+
 const initialState = channelsAdapter.getInitialState({
   currentChannelId: null,
 });
@@ -36,9 +36,8 @@ const channelsSlice = createSlice({
       ...state,
       currentChannelId: payload,
     }),
-  },
-  extraReducers: (builder) => {
-    builder.addCase(fetchChannels.fulfilled, (state, { payload }) => {
+
+    setChannels: (state, { payload }) => {
       const newState = channelsAdapter.setAll({ ...state }, payload);
 
       if (payload.length > 0 && !state.currentChannelId) {
@@ -47,18 +46,16 @@ const channelsSlice = createSlice({
           currentChannelId: payload[0].id,
         };
       }
-
       return newState;
-    });
+    },
   },
+  extraReducers: () => {},
 });
 
 export const { actions: channelsActions } = channelsSlice;
 export default channelsSlice.reducer;
 
-const channelsSelectors = channelsAdapter.getSelectors(
-  (state) => state.channels,
-);
+const channelsSelectors = channelsAdapter.getSelectors((state) => state.channels);
 export const selectAllChannels = channelsSelectors.selectAll;
 export const selectChannelById = channelsSelectors.selectById;
 export const selectCurrentChannelId = (state) => state.channels.currentChannelId;
