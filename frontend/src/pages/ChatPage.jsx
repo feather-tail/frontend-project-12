@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { ButtonGroup, Dropdown } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
+
 import Header from '../components/Header.jsx';
 import AddChannelModal from '../modals/AddChannel.jsx';
 import RemoveChannelModal from '../modals/RemoveChannel.jsx';
@@ -20,12 +21,14 @@ import {
   selectCurrentChannelMessages,
 } from '../store/messagesSlice.js';
 
+import addIcon from '../assets/add.svg';
+import sendIcon from '../assets/send.svg';
+
 const ChatPage = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
   const [newMessage, setNewMessage] = useState('');
-
   const [showAddModal, setShowAddModal] = useState(false);
   const [showRenameModal, setShowRenameModal] = useState(false);
   const [showRemoveModal, setShowRemoveModal] = useState(false);
@@ -100,15 +103,7 @@ const ChatPage = () => {
                 className="p-0 text-primary btn btn-group-vertical"
                 onClick={() => setShowAddModal(true)}
               >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="20"
-                  height="20"
-                  fill="currentColor"
-                  viewBox="0 0 16 16"
-                >
-                  <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
-                </svg>
+                <img src={addIcon} alt="Add" width={20} height={20} />
                 <span className="visually-hidden">+</span>
               </button>
             </div>
@@ -175,10 +170,7 @@ const ChatPage = () => {
             <div className="d-flex flex-column h-100">
               <div className="bg-light mb-4 p-3 shadow-sm small">
                 <p className="m-0">
-                  <b>
-                    #
-                    {currentChannel?.name}
-                  </b>
+                  <b>#{currentChannel?.name}</b>
                 </p>
                 <span className="text-muted">
                   {t('chat.messagesCounter', { count: messages.length })}
@@ -191,12 +183,7 @@ const ChatPage = () => {
               >
                 {messages.map((msg) => (
                   <div key={msg.id} className="text-break mb-2">
-                    <b>
-                      {msg.username || 'user'}
-                      :
-                    </b>
-                    {' '}
-                    {msg.body}
+                    <b>{msg.username || 'user'}:</b> {msg.body}
                   </div>
                 ))}
               </div>
@@ -221,15 +208,7 @@ const ChatPage = () => {
                       disabled={!newMessage.trim()}
                       className="btn btn-group-vertical"
                     >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="20"
-                        height="20"
-                        fill="currentColor"
-                        viewBox="0 0 16 16"
-                      >
-                        <path d="M15.854 7.646a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L14.293 8H1.5a.5.5 0 0 1 0-1h12.793l-2.147-2.146a.5.5 0 1 1 .708-.708l3 3z" />
-                      </svg>
+                      <img src={sendIcon} alt="Send" width={20} height={20} />
                       <span className="visually-hidden">
                         {t('chat.form.send')}
                       </span>
