@@ -13,12 +13,12 @@ import {
 import AddChannelModal from '../modals/AddChannel.jsx';
 import RenameChannelModal from '../modals/RenameChannel.jsx';
 import RemoveChannelModal from '../modals/RemoveChannel.jsx';
-import { useAuth } from '../AuthContext.jsx';
+import { useAuthState } from '../AuthContext.jsx';
 import socket from '../services/initSocket.js';
 
 const ChatPage = () => {
   const dispatch = useDispatch();
-  const { token, user: username } = useAuth();
+  const { token, user: username } = useAuthState();
 
   const {
     isAddModalOpen,

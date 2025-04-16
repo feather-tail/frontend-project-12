@@ -15,11 +15,11 @@ import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import Header from '../components/Header.jsx';
 import apiRoutes from '../services/route.js';
-import { useAuth } from '../AuthContext.jsx';
+import { useAuthActions } from '../AuthContext.jsx';
 import routes from '../services/clientRoutes.js';
 
 const SignupPage = () => {
-  const { login } = useAuth();
+  const { login } = useAuthActions();
   const navigate = useNavigate();
   const { t } = useTranslation();
 
